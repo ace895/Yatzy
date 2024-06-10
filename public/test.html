@@ -4,9 +4,230 @@
 <head>
     <meta charset="UTF-8">
     <title>Yatzy Test</title>
-    <script src="assets/yatzy_engine.js"></script>
-    <script src="assets/dice.js"></script>
-    <script src="assets/yatzy_game.js"></script>
+    <meta name="viewport" content="width=device-width">
+    <script type="module" src="assets/yatzy_engine.js"></script>
+    <script type="module" src="assets/dice.js"></script>
+    <script type="module" src="assets/yatzy_game.js"></script>
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
+<body>
+    <div class="row">
+        <div id="dice-board">
+            <p>Click a dice to reroll it (max 3 rerolls per dice) or select a score box to submit a score</p>
+            <div class="dice" id="die1" onclick="rollOne(document.getElementById('die1'))" onload="showNDie(document.getElementById('die1'), 6)"></div>
+            <div class="dice" id="die2" onclick="rollOne(document.getElementById('die2'))" onload="showNDie(document.getElementById('die2'), 6)"></div>
+            <div class="dice" id="die3" onclick="rollOne(document.getElementById('die3'))" onload="showNDie(document.getElementById('die3'), 6)"></div>
+            <div class="dice" id="die4" onclick="rollOne(document.getElementById('die4'))" onload="showNDie(document.getElementById('die4'), 6)"></div>
+            <div class="dice" id="die5" onclick="rollOne(document.getElementById('die5'))" onload="showNDie(document.getElementById('die5'), 6)"></div>
+            <button onclick="rollAll()">Roll</button>
+        </div>
+    
+        <div id="score-board">
+            <div id="upper-score-board">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Upper Section</td>
+                        </tr>
+                        <tr>
+                            <td><b>Category</b></td>
+                            <td><b>How to Score</b></td>
+                            <td><b>Score</b></td>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aces</td>
+                            <td>Count and add only Aces</td>
+                            <td class="score" id="aces-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Twos</td>
+                            <td>Count and add only Twos</td>
+                            <td class="score" id="twos-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Threes</td>
+                            <td>Count and add only Threes</td>
+                            <td class="score" id="threes-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Fours</td>
+                            <td>Count and add only Aces</td>
+                            <td class="score" id="fours-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Fives</td>
+                            <td>Count and add only Twos</td>
+                            <td class="score" id="fives-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Sixes</td>
+                            <td>Count and add only Threes</td>
+                            <td class="score" id="sixes-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Score</td>
+                            <td></td>
+                            <td id="upper-subtotal-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Bonus if total score is >= 63</td>
+                            <td>Score 35</td>
+                            <td id="bonus-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Total of Upper Section</td>
+                            <td></td>
+                            <td id="upper-total-score"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <br>
+            <div id="lower-score-board">
+                <table>
+                    <thead>
+                        <tr><td>Lower Section</td></tr>
+                        <tr>
+                            <td><b>Category</b></td>
+                            <td><b>How to Score</b></td>
+                            <td><b>Score</b></td>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>3 of a kind</td>
+                            <td>Add total of all dice</td>
+                            <td class="score" id="three-of-a-kind-score"></td>
+                        </tr>
+                        <tr>
+                            <td>4 of a kind</td>
+                            <td>Add total of all dice</td>
+                            <td class="score" id="four-of-a-kind-scre"></td>
+                        </tr>
+                        <tr>
+                            <td>Full house</td>
+                            <td>Score 25</td>
+                            <td class="score" id="full-house-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Small straight (sequence of 4)</td>
+                            <td>Score 30</td>
+                            <td class="score" id="sm-straight-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Long straight (sequence of 5)</td>
+                            <td>Score 40</td>
+                            <td class="score" id="lg-straight-score"></td>
+                        </tr>
+                        <tr>
+                            <td>YAHTZEE (5 of a kind)</td>
+                            <td>Score 50</td>
+                            <td class="score" id="yahtzee-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Chance</td>
+                            <td>Add total of all dice</td>
+                            <td class="score" id="chance-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Bonus if total score is >= 63</td>
+                            <td>Score 35</td>
+                            <td id="bonus-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Total of Lower Section</td>
+                            <td></td>
+                            <td id="lower-total-score"></td>
+                        </tr>
+                        <tr>
+                            <td>Grand Total</td>
+                            <td></td>
+                            <td id="total-score"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ </body>
+
+<script>
+
+    window.onload = function() {
+        showNDie(document.getElementById('die1'), 6);
+        showNDie(document.getElementById('die2'), 6);
+        showNDie(document.getElementById('die3'), 6);
+        showNDie(document.getElementById('die4'), 6);
+        showNDie(document.getElementById('die5'), 6);
+    };
+
+    function showNDie(die, n) {
+
+        console.log("Show");
+        if (n == 1) {
+            die.innerHTML = "<div class=\"middle\"><div class=\"dot\"></div></div>";
+        }
+        else if (n == 2) {
+            die.innerHTML = "<div class=\"top-left\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"bottom-right\"><div class=\"dot\"></div></div>";
+        }
+        else if (n == 3) {
+            die.innerHTML = "<div class=\"top-left\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"bottom-right\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"middle\"><div class=\"dot\"></div></div>" ;
+        }
+        else if (n == 4) {
+            die.innerHTML = "<div class=\"top-left\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"top-right\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"bottom-left\"><div class=\"dot\"></div></div>" +
+                            "<div class=\"bottom-right\"><div class=\"dot\"></div></div>" ;
+        }
+        else if (n == 5) {
+            die.innerHTML = "<div class=\"top-left\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"top-right\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"bottom-left\"><div class=\"dot\"></div></div>" +
+                            "<div class=\"bottom-right\"><div class=\"dot\"></div></div>" +
+                            "<div class=\"middle\"><div class=\"dot\"></div></div>" ;
+        }
+        else if (n==6){
+            die.innerHTML = "<div class=\"top-left\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"top-right\"><div class=\"dot\"></div></div>" + 
+                            "<div class=\"bottom-left\"><div class=\"dot\"></div></div>" +
+                            "<div class=\"bottom-right\"><div class=\"dot\"></div></div>" +
+                            "<div class=\"middle-right\"><div class=\"dot\"></div></div>" +
+                            "<div class=\"middle-left\"><div class=\"dot\"></div></div>" ;
+        }
+
+    }
+    
+    function showRoll(die, n) {
+        var i = 0;
+        var roller = setInterval(() => {
+            i ++;
+            showNDie(die, Math.floor(Math.random() * 6) + 1);
+            if (i > 15) {
+                showNDie(die, n);
+                clearInterval(roller);
+            }
+        }, 50);
+        
+    }
+
+    function rollOne(die) {
+        showRoll(die, Math.floor(Math.random() * 6) + 1)
+    }
+
+    function rollAll() {
+        showRoll(document.getElementById("die1"),  Math.floor(Math.random() * 6) + 1);
+        showRoll(document.getElementById("die2"),  Math.floor(Math.random() * 6) + 1);
+        showRoll(document.getElementById("die3"),  Math.floor(Math.random() * 6) + 1);
+        showRoll(document.getElementById("die4"),  Math.floor(Math.random() * 6) + 1);
+        showRoll(document.getElementById("die5"),  Math.floor(Math.random() * 6) + 1);
+    }
+
+</script>
 
 </html>

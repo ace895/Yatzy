@@ -1,0 +1,89 @@
+body {
+    font-family:'Segoe UI', sans-serif;
+    padding: 20px;
+}
+
+.dice {
+    margin: 10px;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.score:hover, .dice:hover{
+    background-color: #dedede;
+}
+
+.dice .middle {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+}
+.dice .top-left {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+.dice .top-right {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+.dice .bottom-left {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+}
+.dice .bottom-right {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
+.dice .middle-left {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+}
+.dice .middle-right {
+    position: absolute;
+    top: 40%;
+    right: 5%;
+}
+
+.dot {
+    border: 1px solid black;
+    background-color: black;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px; 
+}
+
+table {
+    padding: 5px;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td {
+    padding: 5px;
+    width: 200px;
+    border-style: solid;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+}
+
+#dice-board {
+    flex:1;
+}
+
+button {
+    border: 0;
+    width: 60px;
+    height: 40px;
+    border-radius: 10px;
+}

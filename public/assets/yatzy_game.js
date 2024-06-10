@@ -1,21 +1,8 @@
-/*In `yatzy_game.js`, implement a current state of a game.
-
-A yatzy game comprises of a turn, which includes
-
-* Which roll you are on (0, 1, 2, or 3)
-* Current value on each of the 5 dice
-* Keep / re-roll state of each dice
-
-The `YatzyGame` should focus on tracking the state of the game
-without knowing much about the rules, that comes next!*/
-
-//Get dice module
-import {Dice} from './dice.js';
-
+import { Dice } from './dice.js'; 
 var Game = (function() {
 
-    var NUM_OF_DICE = 5;
-    var MAX_REROLLS = 2;
+    const NUM_OF_DICE = 5;
+    const MAX_REROLLS = 2;
     var this_game = {
         "roll_num": 0, //Stores current roll
         "rerolls": new Array(NUM_OF_DICE).fill(0), //Stores number of rerolls for each dice
@@ -48,7 +35,7 @@ var Game = (function() {
     }
 
     //Reroll dice n if it has less than 2 rerolls
-    this_game.reroll() = function(n) {
+    this_game.reroll = function(n) {
         if (this.rerolls[n] == MAX_REROLLS) {
             return;
         }
@@ -59,5 +46,7 @@ var Game = (function() {
     return this_game;
 
 })();
+
+export {Game};
 
 

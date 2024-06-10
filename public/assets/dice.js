@@ -1,4 +1,4 @@
-var Dice = (function(){
+export var Dice = (function(){
     var entity = {
         "history": []
       };    
@@ -18,5 +18,3 @@ var Dice = (function(){
     return results; 
     }
 })(); 
-
-

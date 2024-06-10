@@ -1,5 +1,3 @@
-import {Game} from './yatzy_game.js';
-
 //Game is the current state 
 //Category is which spot the player is going to add to their table 
 function calculateScore(game, category ){
