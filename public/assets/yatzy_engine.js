@@ -30,6 +30,7 @@ function updateOverallScore(game){
     game.totalScore = sectionScore + game.bonus + Object.values(game.scores).reduce((acc, score) => acc + (score || 0), 0);
 }
 //This function should always be called after the dice is rolled 
+//to find the different categories, probably will make them into functions so that when i do calculatescore, its easier too and it can be use again 
 function calculatePossibleScore(dice){
     //gives us the number of each side of the dices 
     const one = 0; 
@@ -60,8 +61,6 @@ function calculatePossibleScore(dice){
         document.getElementById('chance-score').innerHTML() = chance;
         document.getElementById('chance-score').style.color = '#808080';
     }
-    //Checks what the player can get 
-    // make sure the text is grey since its the real answer 
     if(one !== 0){
         document.getElementsById('aces-score').innerHTML() = one * 1;
         document.getElementById('aces-score').style.color = '#808080'; 
