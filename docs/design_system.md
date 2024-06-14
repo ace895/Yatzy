@@ -13,4 +13,10 @@ The overall design we decide on was the keep it simple and minimalistic as our m
 
 ## Components 
 
-![Dice](assets/design_system/dice.png)
+[Dice](assets/design_system/dice.png)
+
+[Start Page](assets/design_system/start_page.png)
+
+[Score Table](assets/design_system/score_table.png)
+
+[Dice Board](assets/design_system/dice_board.png)
