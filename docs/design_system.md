@@ -15,4 +15,4 @@ The overall design we decide on was the keep it simple and minimalistic as our m
 
 ![Dice](assets/design_system/dice.png)
 
-![ScoreBoard](assets)
+![ScoreBoard](assets/design_system/ScoreBoard.png)
