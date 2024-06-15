@@ -83,7 +83,7 @@ function calculatePossibleScore(dice){
     var chance = calculate_chance(dice);
     if(document.getElementById("chance-score") === null ){
         document.getElementById("chance-score").innerHTML() = chance;
-        document.getElementById("chance-score").style.color = '#000000';
+        document.getElementById("chance-score").style.color = '#808080';
     }
     if(one !== 0 && document.getElementById("aces-score") === null ){
         document.getElementsById("aces-score").innerHTML() = one * 1;
@@ -237,5 +237,31 @@ function calculate_fullHouse(one,two,three,four,five,six){
 }
 // Function after 2 rolls, the gray text should become blank again 
 function remove_possible_calculation(){
-
+    if(document.getElementById("aces-score").style.color === '#808080'){
+        document.getElementById("aces-score") = null; 
+    }if(document.getElementById("twos-score").style.color === '#808080'){
+        document.getElementById("twos-score") = null; 
+    }if(document.getElementById("threes-score").style.color === '#808080'){
+        document.getElementById("threes-score") = null; 
+    }if(document.getElementById("fours-score").style.color === '#808080'){
+        document.getElementById("fours-score") = null; 
+    }if(document.getElementById("fives-score").style.color === '#808080'){
+        document.getElementById("fives-score") = null; 
+    }if(document.getElementById("sixes-score").style.color === '#808080'){
+        document.getElementById("sixes-score") = null; 
+    }if(document.getElementById("chance-score").style.color === '#808080'){
+        document.getElementById("chance-score") = null; 
+    }if(document.getElementById("three-of-a-kind-score").style.color === '#808080'){
+        document.getElementById("three-of-a-kind-score") = null; 
+    }if(document.getElementById("four-of-a-kind-score").style.color === '#808080'){
+        document.getElementById("four-of-a-kind-score") = null; 
+    }if(document.getElementById("yahtzee-score").style.color === '#808080'){
+        document.getElementById("yahtzee-score") = null; 
+    }if(document.getElementById("sm-straight-score").style.color === '#808080'){
+        document.getElementById("sm-straight-score") = null; 
+    }if(document.getElementById("lg-straight-score").style.color === '#808080'){
+        document.getElementById("lg-straight-score") = null; 
+    }if(document.getElementById("full-house-score").style.color === '#808080'){
+        document.getElementById("full-house-score") = null; 
+    }
 }
