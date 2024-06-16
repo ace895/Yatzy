@@ -14,13 +14,13 @@
 <body>
     <div class="row">
         <div id="dice-board">
-            <p>Click a dice to reroll it (max 3 rerolls per dice) or select a score box to submit a score</p>
-            <div class="dice" id="die1" onclick="rollOne(document.getElementById('die1'))" onload="showNDie(document.getElementById('die1'), 6)"></div>
-            <div class="dice" id="die2" onclick="rollOne(document.getElementById('die2'))" onload="showNDie(document.getElementById('die2'), 6)"></div>
-            <div class="dice" id="die3" onclick="rollOne(document.getElementById('die3'))" onload="showNDie(document.getElementById('die3'), 6)"></div>
-            <div class="dice" id="die4" onclick="rollOne(document.getElementById('die4'))" onload="showNDie(document.getElementById('die4'), 6)"></div>
-            <div class="dice" id="die5" onclick="rollOne(document.getElementById('die5'))" onload="showNDie(document.getElementById('die5'), 6)"></div>
-            <button onclick="rollAll()">Roll</button>
+            <p>Click a dice to select it for a reroll and click "Reroll" or select a score box to submit a score</p>
+            <div class="dice" id="die1" onclick="select(document.getElementById('die1'))" onload="showNDie(document.getElementById('die1'), 6)"></div>
+            <div class="dice" id="die2" onclick="select(document.getElementById('die2'))" onload="showNDie(document.getElementById('die2'), 6)"></div>
+            <div class="dice" id="die3" onclick="select(document.getElementById('die3'))" onload="showNDie(document.getElementById('die3'), 6)"></div>
+            <div class="dice" id="die4" onclick="select(document.getElementById('die4'))" onload="showNDie(document.getElementById('die4'), 6)"></div>
+            <div class="dice" id="die5" onclick="select(document.getElementById('die5'))" onload="showNDie(document.getElementById('die5'), 6)"></div>
+            <button id="roll-button" onclick="rollAll()">Roll</button>
         </div>
     
         <div id="score-board">
@@ -165,9 +165,22 @@
         showNDie(document.getElementById('die5'), 6);
     };
 
+    function select(die) {
+        if (document.getElementById("roll-button").innerHTML == "Roll") {
+            return;
+        }
+
+        //Check if die is selected
+        if (die.style.backgroundColor == "rgb(255, 255, 255)" || die.style.backgroundColor == "") {
+            die.style.backgroundColor = "rgb(222, 222, 222)";
+        }
+        else {
+            die.style.backgroundColor = "rgb(255, 255, 255)";
+        }
+    }
+
     function showNDie(die, n) {
 
-        console.log("Show");
         if (n == 1) {
             die.innerHTML = "<div class=\"middle\"><div class=\"dot\"></div></div>";
         }
@@ -217,16 +230,45 @@
         
     }
 
-    function rollOne(die) {
-        showRoll(die, Math.floor(Math.random() * 6) + 1)
+    function reroll() {
+        //Check which die are selected and reroll them
+        console.log(document.getElementById("die1").style.backgroundColor );
+        if (document.getElementById("die1").style.backgroundColor == "rgb(222, 222, 222)") {
+            showRoll(document.getElementById("die1"),  Math.floor(Math.random() * 6) + 1);
+            select(document.getElementById("die1"));
+        }
+        if (document.getElementById("die2").style.backgroundColor == "rgb(222, 222, 222)") {
+            showRoll(document.getElementById("die2"),  Math.floor(Math.random() * 6) + 1);
+            select(document.getElementById("die2"));
+        }
+        if (document.getElementById("die3").style.backgroundColor == "rgb(222, 222, 222)") {
+            showRoll(document.getElementById("die3"),  Math.floor(Math.random() * 6) + 1);
+            select(document.getElementById("die3"));
+        }
+        if (document.getElementById("die4").style.backgroundColor == "rgb(222, 222, 222)") {
+            showRoll(document.getElementById("die4"),  Math.floor(Math.random() * 6) + 1);
+            select(document.getElementById("die4"));
+        }
+        if (document.getElementById("die5").style.backgroundColor == "rgb(222, 222, 222)") {
+            showRoll(document.getElementById("die5"),  Math.floor(Math.random() * 6) + 1);
+            select(document.getElementById("die5"));
+        }
     }
 
     function rollAll() {
-        showRoll(document.getElementById("die1"),  Math.floor(Math.random() * 6) + 1);
-        showRoll(document.getElementById("die2"),  Math.floor(Math.random() * 6) + 1);
-        showRoll(document.getElementById("die3"),  Math.floor(Math.random() * 6) + 1);
-        showRoll(document.getElementById("die4"),  Math.floor(Math.random() * 6) + 1);
-        showRoll(document.getElementById("die5"),  Math.floor(Math.random() * 6) + 1);
+        button = document.getElementById("roll-button");
+        if (button.innerHTML == "Reroll") {
+            reroll();
+        }
+        else {
+            showRoll(document.getElementById("die1"),  Math.floor(Math.random() * 6) + 1);
+            showRoll(document.getElementById("die2"),  Math.floor(Math.random() * 6) + 1);
+            showRoll(document.getElementById("die3"),  Math.floor(Math.random() * 6) + 1);
+            showRoll(document.getElementById("die4"),  Math.floor(Math.random() * 6) + 1);
+            showRoll(document.getElementById("die5"),  Math.floor(Math.random() * 6) + 1);
+            button.innerHTML = "Reroll";
+        }
+    
     }
 
 </script>
