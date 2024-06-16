@@ -15,72 +15,84 @@
     <div class="row">
         <div id="dice-board">
             <p>Click a dice to select it for a reroll and click "Reroll" or select a score box to submit a score</p>
-            <div class="dice" id="die1" onclick="select(document.getElementById('die1'))" onload="showNDie(document.getElementById('die1'), 6)"></div>
-            <div class="dice" id="die2" onclick="select(document.getElementById('die2'))" onload="showNDie(document.getElementById('die2'), 6)"></div>
-            <div class="dice" id="die3" onclick="select(document.getElementById('die3'))" onload="showNDie(document.getElementById('die3'), 6)"></div>
-            <div class="dice" id="die4" onclick="select(document.getElementById('die4'))" onload="showNDie(document.getElementById('die4'), 6)"></div>
-            <div class="dice" id="die5" onclick="select(document.getElementById('die5'))" onload="showNDie(document.getElementById('die5'), 6)"></div>
+            <table id="dice-table">
+                <tr>
+                    <td class="dice-td"><div class="dice" id="die1" onclick="select(document.getElementById('die1'))" onload="showNDie(document.getElementById('die1'), 6)"></div></td>
+                    <td class="dice-td"></td>
+                    <td class="dice-td"><div class="dice" id="die2" onclick="select(document.getElementById('die2'))" onload="showNDie(document.getElementById('die2'), 6)"></div></td>
+                </tr>
+                <tr>
+                    <td class="dice-td"></td>
+                    <td class="dice-td"><div class="dice" id="die3" onclick="select(document.getElementById('die3'))" onload="showNDie(document.getElementById('die3'), 6)"></div></td>
+                    <td class="dice-td"></td>
+                </tr>
+                <tr>
+                    <td class="dice-td"><div class="dice" id="die4" onclick="select(document.getElementById('die4'))" onload="showNDie(document.getElementById('die4'), 6)"></div></td>
+                    <td class="dice-td"></td>
+                    <td class="dice-td"><div class="dice" id="die5" onclick="select(document.getElementById('die5'))" onload="showNDie(document.getElementById('die5'), 6)"></div></td>
+                </tr>
+            </table>
             <button id="roll-button" onclick="rollAll()">Roll</button>
         </div>
     
         <div id="score-board">
             <div id="upper-score-board">
-                <table>
+                <table id="score-table">
                     <thead>
                         <tr>
-                            <td>Upper Section</td>
+                            <td class="score-td">Upper Section</td>
                         </tr>
                         <tr>
-                            <td><b>Category</b></td>
-                            <td><b>How to Score</b></td>
-                            <td><b>Score</b></td>
+                            <td class="score-td"><b>Category</b></td>
+                            <td class="score-td"><b>How to Score</b></td>
+                            <td class="score-td"><b>Score</b></td>
                         </tr> 
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Aces</td>
-                            <td>Count and add only Aces</td>
-                            <td class="score" id="aces-score"></td>
+                            <td class="score-td">Aces</td>
+                            <td class="score-td">Count and add only Aces</td>
+                            <td class="score" id="aces-score" onclick="submitScore('aces-score')"></td>
                         </tr>
                         <tr>
-                            <td>Twos</td>
-                            <td>Count and add only Twos</td>
-                            <td class="score" id="twos-score"></td>
+                            <td class="score-td">Twos</td>
+                            <td class="score-td">Count and add only Twos</td>
+                            <td class="score" id="twos-score" onclick="submitScore('twos-score')"></td>
                         </tr>
                         <tr>
-                            <td>Threes</td>
-                            <td>Count and add only Threes</td>
-                            <td class="score" id="threes-score"></td>
+                            <td class="score-td">Threes</td>
+                            <td class="score-td">Count and add only Threes</td>
+                            <td class="score" id="threes-score" onclick="submitScore('threes-score')"></td>
                         </tr>
                         <tr>
-                            <td>Fours</td>
-                            <td>Count and add only Aces</td>
-                            <td class="score" id="fours-score"></td>
+                            <td class="score-td">Fours</td>
+                            <td class="score-td">Count and add only Aces</td>
+                            <td class="score" id="fours-score" onclick="submitScore('fours-score')"></td>
                         </tr>
                         <tr>
-                            <td>Fives</td>
-                            <td>Count and add only Twos</td>
-                            <td class="score" id="fives-score"></td>
+                            <td class="score-td">Fives</td>
+                            <td class="score-td">Count and add only Twos</td>
+                            <td class="score" id="fives-score" onclick="submitScore('fives-score')"></td>
                         </tr>
                         <tr>
-                            <td>Sixes</td>
-                            <td>Count and add only Threes</td>
-                            <td class="score" id="sixes-score"></td>
+                            <td class="score-td">Sixes</td>
+                            <td class="score-td">Count and add only Threes</td>
+                            <td class="score" id="sixes-score" onclick="submitScore('sixes-score')"></td>
                         </tr>
                         <tr>
-                            <td>Total Score</td>
-                            <td></td>
-                            <td id="upper-subtotal-score"></td>
+                            <td class="score-td">Total Score</td>
+                            <td class="score-td"></td>
+                            <td class="score-td" id="upper-subtotal-score"></td>
                         </tr>
                         <tr>
-                            <td>Bonus if total score is >= 63</td>
-                            <td>Score 35</td>
-                            <td id="upper-bonus-score"></td>
+                            <td class="score-td">Bonus if total score is >= 63</td>
+                            <td class="score-td">Score 35</td>
+                            <td class="score-td" id="upper-bonus-score"></td>
                         </tr>
                         <tr>
-                            <td>Total of Upper Section</td>
-                            <td></td>
-                            <td id="upper-total-score"></td>
+                            <td class="score-td">Total of Upper Section</td>
+                            <td class="score-td"></td>
+                            <td class="score-td" id="upper-total-score"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -88,65 +100,65 @@
         
             <br>
             <div id="lower-score-board">
-                <table>
+                <table id="score-table">
                     <thead>
-                        <tr><td>Lower Section</td></tr>
+                        <tr><td class="score-td">Lower Section</td></tr>
                         <tr>
-                            <td><b>Category</b></td>
-                            <td><b>How to Score</b></td>
-                            <td><b>Score</b></td>
+                            <td class="score-td"><b>Category</b></td>
+                            <td class="score-td"><b>How to Score</b></td>
+                            <td class="score-td"><b>Score</b></td>
                         </tr> 
                     </thead>
                     <tbody>
                         <tr>
-                            <td>3 of a kind</td>
-                            <td>Add total of all dice</td>
-                            <td class="score" id="three-of-a-kind-score"></td>
+                            <td class="score-td">3 of a kind</td>
+                            <td class="score-td">Add total of all dice</td>
+                            <td class="score" id="three-of-a-kind-score" onclick="submitScore('three-of-a-kind-score')"></td>
                         </tr>
                         <tr>
-                            <td>4 of a kind</td>
-                            <td>Add total of all dice</td>
-                            <td class="score" id="four-of-a-kind-score"></td>
+                            <td class="score-td">4 of a kind</td>
+                            <td class="score-td">Add total of all dice</td>
+                            <td class="score" id="four-of-a-kind-score" onclick="submitScore('four-of-a-kind-score')"></td>
                         </tr>
                         <tr>
-                            <td>Full house</td>
-                            <td>Score 25</td>
-                            <td class="score" id="full-house-score"></td>
+                            <td class="score-td">Full house</td>
+                            <td class="score-td">Score 25</td>
+                            <td class="score" id="full-house-score" onclick="submitScore('full-house-score')"></td>
                         </tr>
                         <tr>
-                            <td>Small straight (sequence of 4)</td>
-                            <td>Score 30</td>
-                            <td class="score" id="sm-straight-score"></td>
+                            <td class="score-td">Small straight (sequence of 4)</td>
+                            <td class="score-td">Score 30</td>
+                            <td class="score" id="sm-straight-score" onclick="submitScore('sm-straight-score')"></td>
                         </tr>
                         <tr>
-                            <td>Long straight (sequence of 5)</td>
-                            <td>Score 40</td>
-                            <td class="score" id="lg-straight-score"></td>
+                            <td class="score-td">Long straight (sequence of 5)</td>
+                            <td class="score-td">Score 40</td>
+                            <td class="score" id="lg-straight-score" onclick="submitScore('lg-straight-score')"></td>
                         </tr>
                         <tr>
-                            <td>YAHTZEE (5 of a kind)</td>
-                            <td>Score 50</td>
-                            <td class="score" id="yahtzee-score"></td>
+                            <td class="score-td">YAHTZEE (5 of a kind)</td>
+                            <td class="score-td">Score 50</td>
+                            <td class="score" id="yahtzee-score" onclick="submitScore('yahtzee-score')"></td>
                         </tr>
                         <tr>
-                            <td>Chance</td>
-                            <td>Add total of all dice</td>
-                            <td class="score" id="chance-score"></td>
+                            <td class="score-td">Chance</td>
+                            <td class="score-td">Add total of all dice</td>
+                            <td class="score" id="chance-score" onclick="submitScore('chance-score')"></td>
                         </tr>
                         <tr>
-                            <td>Bonus if total score is >= 63</td>
-                            <td>Score 35</td>
-                            <td id="lower-bonus-score"></td>
+                            <td class="score-td">Bonus if total score is >= 63</td>
+                            <td class="score-td">Score 35</td>
+                            <td class="score-td" id="lower-bonus-score"></td>
                         </tr>
                         <tr>
-                            <td>Total of Lower Section</td>
-                            <td></td>
-                            <td id="lower-total-score"></td>
+                            <td class="score-td">Total of Lower Section</td>
+                            <td class="score-td"></td>
+                            <td class="score-td" id="lower-total-score"></td>
                         </tr>
                         <tr>
-                            <td>Grand Total</td>
-                            <td></td>
-                            <td id="total-score"></td>
+                            <td class="score-td">Grand Total</td>
+                            <td class="score-td"></td>
+                            <td class="score-td" id="total-score"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -269,6 +281,10 @@
             button.innerHTML = "Reroll";
         }
     
+    }
+
+    function submitScore(Category) {
+        //Get dice values and calculate score
     }
 
 </script>

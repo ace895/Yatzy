@@ -61,16 +61,21 @@ body {
     height: 20px; 
 }
 
-table {
+#score-table {
     padding: 5px;
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-td {
+.score-td, .score {
     padding: 5px;
     width: 200px;
     border-style: solid;
+}
+
+.dice-td {
+    padding: 5px;
+    width: 200px;
 }
 
 .row {
