@@ -8,7 +8,7 @@ export var Dice = (function(){
         console.log(roll);
         return roll; 
     }
-    entity.multi_dice_roll = function() {
+    entity.multi_dice_roll = function(num) {
         var results = []; 
         for(let i = 0; i < num; i++){
             var roll = Math.floor(Math.random() * 6) + 1;

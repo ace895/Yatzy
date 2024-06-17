@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Yatzy</title>
     <meta name="viewport" content="width=device-width">
-    <script type="module" src="assets/yatzy_engine.js"></script>
+    <script  src="assets/yatzy_engine.js"></script>
     <script type="module" src="assets/dice.js"></script>
     <script type="module" src="assets/yatzy_game.js"></script>
     <link rel="stylesheet" href="assets/styles.css">
@@ -169,17 +169,23 @@
  </body>
 
 <script>
-
     var selectedColor = "rgb(255, 238, 107)";
     var unselectedColor = "rgb(255, 255, 255)";
 
-    window.onload = function() {
-        showNDie(document.getElementById('die1'), 6);
-        showNDie(document.getElementById('die2'), 6);
-        showNDie(document.getElementById('die3'), 6);
-        showNDie(document.getElementById('die4'), 6);
-        showNDie(document.getElementById('die5'), 6);
-    };
+    //Roll (or reroll) all dice
+    function rollAll() {
+        button = document.getElementById("roll-button");
+        if (button.innerHTML == "<b>Reroll</b>") {
+            reroll(game.dice);
+        }
+        else {
+            dice = game.rollDice()
+            displayDice(dice);
+            button.innerHTML = "<b>Reroll</b>";
+            document.getElementById("instructions").style.visibility = "visible";
+        }
+    
+    }
 
     //Change the selection of die
     function select(die) {
@@ -199,7 +205,6 @@
 
     //Change innerHTML of die to show number n
     function showNDie(die, n) {
-
         if (n == 1) {
             die.innerHTML = "<div class=\"middle\"><div class=\"dot\"></div></div>";
         }
@@ -249,67 +254,70 @@
         }, 50);
         
     }
+    
+    function displayDice(dice) {
+        for (let i = 0; i < dice.length; i++) {
+            showRoll(document.getElementById("die1"),  dice[i]);
+        }
+        calculatePossibleScore(dice);
+    }
 
     //Reroll selected die
-    function reroll() {
+    function reroll(dice) {
         //Check which die are selected and reroll them
         diceSelected = false;
+        const diceToReroll = []; 
 
         console.log(document.getElementById("die1").style.backgroundColor );
         if (document.getElementById("die1").style.backgroundColor == selectedColor) {
-            showRoll(document.getElementById("die1"),  Math.floor(Math.random() * 6) + 1);
+            diceToReroll.push(0);
             select(document.getElementById("die1"));
             diceSelected = true;
         }
         if (document.getElementById("die2").style.backgroundColor == selectedColor) {
-            showRoll(document.getElementById("die2"),  Math.floor(Math.random() * 6) + 1);
+            diceToReroll.push(1);
             select(document.getElementById("die2"));
             diceSelected = true;
         }
         if (document.getElementById("die3").style.backgroundColor == selectedColor) {
-            showRoll(document.getElementById("die3"),  Math.floor(Math.random() * 6) + 1);
+            diceToReroll.push(2);
             select(document.getElementById("die3"));
             diceSelected = true;
         }
         if (document.getElementById("die4").style.backgroundColor == selectedColor) {
-            showRoll(document.getElementById("die4"),  Math.floor(Math.random() * 6) + 1);
+            diceToReroll.push(3);
             select(document.getElementById("die4"));
             diceSelected = true;
         }
         if (document.getElementById("die5").style.backgroundColor == selectedColor) {
-            showRoll(document.getElementById("die5"),  Math.floor(Math.random() * 6) + 1);
+            diceToReroll.push(4);
             select(document.getElementById("die5"));
             diceSelected = true;
         }
-
         if (diceSelected) {
             //Decrement rerolls
+            const reroll_dice = game.reroll(diceToReroll);
+            let count = 0; 
+            for(let i = 0; i < 5; i++){
+                if(i === diceToReroll[count]){
+                    dice[i] = reroll_dice[count];
+                    count++; 
+                }
+
+            }
+            displayDice(dice);
         }
         else {
             document.getElementById("instructions").innerHTML = "Select a dice first to reroll!";
         }
     }
 
-    //Roll (or reroll) all dice
-    function rollAll() {
-        button = document.getElementById("roll-button");
-        if (button.innerHTML == "<b>Reroll</b>") {
-            reroll();
-        }
-        else {
-            showRoll(document.getElementById("die1"),  Math.floor(Math.random() * 6) + 1);
-            showRoll(document.getElementById("die2"),  Math.floor(Math.random() * 6) + 1);
-            showRoll(document.getElementById("die3"),  Math.floor(Math.random() * 6) + 1);
-            showRoll(document.getElementById("die4"),  Math.floor(Math.random() * 6) + 1);
-            showRoll(document.getElementById("die5"),  Math.floor(Math.random() * 6) + 1);
-            button.innerHTML = "<b>Reroll</b>";
-            document.getElementById("instructions").style.visibility = "visible";
-        }
-    
-    }
 
     function submitScore(Category) {
         //Get dice values and calculate score
+        dices =[document.getElementById("die1").childElementCount, document.getElementById("die2").childElementCount,document.getElementById("die3").childElementCount,document.getElementById("die4").childElementCount,document.getElementById("die5").childElementCount];
+        console.log(document.getElementById("die1").childElementCount);
+        calculateScore(dices, Category);
     }
 
     //Reset board objects for next turn
@@ -335,6 +343,17 @@
         sessionStorage.score = JSON.stringify(finalScore); //send the final score to the end page
         window.location.href = "end_page.html";
     }
+    var game = new Game();
+    window.onload = function() {
+       
+        game.start_game();
+        showNDie(document.getElementById('die1'), 6);
+        showNDie(document.getElementById('die2'), 6);
+        showNDie(document.getElementById('die3'), 6);
+        showNDie(document.getElementById('die4'), 6);
+        showNDie(document.getElementById('die5'), 6);
+        
+    };
 
 </script>
 
