@@ -12,7 +12,14 @@
 </head>
 
 <body>
-    <center><h1>YATZY</h1></center>
+    <div class="header">
+        <h1 id="title">YATZY</h1>
+        <a href="https://www.hasbro.com/common/instruct/yahtzee.pdf" target="_blank">
+            <button id="how-to-play"><b>How to Play</b></button>
+        </a>
+    </div>
+    
+    <hr>
     <div class="row">
         <div id="dice-board">
             <table id="dice-table">
@@ -41,7 +48,7 @@
                 <table id="score-table">
                     <thead>
                         <tr>
-                            <td class="score-td">Upper Section</td>
+                            <td class="score-td" id="upper-title"><b>UPPER SECTION</b></td>
                         </tr>
                         <tr>
                             <td class="score-td"><b>Category</b></td>
@@ -103,7 +110,7 @@
             <div id="lower-score-board">
                 <table id="score-table">
                     <thead>
-                        <tr><td class="score-td">Lower Section</td></tr>
+                        <tr><td class="score-td" id="lower-title"><b>LOWER SECTION</b></td></tr>
                         <tr>
                             <td class="score-td"><b>Category</b></td>
                             <td class="score-td"><b>How to Score</b></td>
