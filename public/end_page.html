@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Yatzy</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body style = "background-image: url(../docs/assets/bg.jpg);">
+    <center>
+        <h1>CONGRADULATIONS!</h1>
+        <h2 id="score"></h2>
+        <a href = "game_board.html">
+            <button class="play-button"><b>Play Again</b></button>
+        </a> 
+    </center>
+</body>
+
+<script>
+    
+    window.onload = function() {
+        var score = JSON.parse(sessionStorage.score);
+        document.getElementById("score").innerHTML = "You scored " + score + " points!";
+    }
+
+</script>
+
+</html>

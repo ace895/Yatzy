@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Yatzy Test</title>
+    <title>Yatzy</title>
     <meta name="viewport" content="width=device-width">
     <script type="module" src="assets/yatzy_engine.js"></script>
     <script type="module" src="assets/dice.js"></script>
@@ -328,6 +328,12 @@
         document.getElementById("die3").style.backgroundColor = unselectedColor;
         document.getElementById("die4").style.backgroundColor = unselectedColor;
         document.getElementById("die5").style.backgroundColor = unselectedColor;
+    }
+
+    //Ends the current game
+    function endGame() {
+        sessionStorage.score = JSON.stringify(finalScore); //send the final score to the end page
+        window.location.href = "end_page.html";
     }
 
 </script>

@@ -133,3 +133,8 @@ h1 {
     font-size: 80px;
     margin-top: 20px;
 }
+
+h2 {
+    margin-top: 0;
+    font-size: xx-large;
+}
