@@ -14,14 +14,14 @@ The overall design we decide on was the keep it simple and minimalistic with onl
 
 ## Components 
 
-![Start Page](assets/design_system/start_page.png)
+[Start Page](assets/design_system/start_page.png)
 
-![Dice](assets/design_system/dice.png)
+[Dice](assets/design_system/dice.png)
 
-![Score Board](assets/design_system/score_table.png)
+[Score Board](assets/design_system/score_table.png)
 
-![Dice Board](assets/design_system/dice_board.png)
+[Dice Board](assets/design_system/dice_board.png)
 
-![Game Board](assets/design_system/game_board.png)
+[Game Board](assets/design_system/game_board.png)
 
-![End Page](assets/design_system/end_page.png)
+[End Page](assets/design_system/end_page.png)
