@@ -22,19 +22,19 @@
         <div id="dice-board">
             <table id="dice-table">
                 <tr>
-                    <td class="dice-td"><div class="dice" id="die1" onclick="select(document.getElementById('die1'))" onload="showNDie(document.getElementById('die1'), 6)"></div></td>
+                    <td class="dice-td"><div class="dice" id="die1" onclick="select(document.getElementById('die1'))"></div></td>
                     <td class="dice-td"></td>
-                    <td class="dice-td"><div class="dice" id="die2" onclick="select(document.getElementById('die2'))" onload="showNDie(document.getElementById('die2'), 6)"></div></td>
+                    <td class="dice-td"><div class="dice" id="die2" onclick="select(document.getElementById('die2'))"></div></td>
                 </tr>
                 <tr>
                     <td class="dice-td"></td>
-                    <td class="dice-td"><div class="dice" id="die3" onclick="select(document.getElementById('die3'))" onload="showNDie(document.getElementById('die3'), 6)"></div></td>
+                    <td class="dice-td"><div class="dice" id="die3" onclick="select(document.getElementById('die3'))"></div></td>
                     <td class="dice-td"></td>
                 </tr>
                 <tr>
-                    <td class="dice-td"><div class="dice" id="die4" onclick="select(document.getElementById('die4'))" onload="showNDie(document.getElementById('die4'), 6)"></div></td>
+                    <td class="dice-td"><div class="dice" id="die4" onclick="select(document.getElementById('die4'))"></div></td>
                     <td class="dice-td"></td>
-                    <td class="dice-td"><div class="dice" id="die5" onclick="select(document.getElementById('die5'))" onload="showNDie(document.getElementById('die5'), 6)"></div></td>
+                    <td class="dice-td"><div class="dice" id="die5" onclick="select(document.getElementById('die5'))"></div></td>
                 </tr>
             </table>
             <button id="roll-button" onclick="rollAll()"><b>Roll</b></button>
@@ -185,7 +185,7 @@
         }
         else {
             Game.roll();
-            displayDice();
+            displayDice([0, 1, 2, 3, 4]);
             button.innerHTML = "<b>Reroll</b>";
             document.getElementById("instructions").style.visibility = "visible";
         }
@@ -260,9 +260,10 @@
         
     }
     
-    function displayDice() {
-        for (let i = 0; i < Game.dice.length; i++) {
-            showRoll(document.getElementById("die" + (i + 1)),  Game.dice[i]);
+    function displayDice(dice) {
+        for (let i = 0; i < dice.length; i++) {
+            n = dice[i];
+            showRoll(document.getElementById("die" + (n + 1)),  Game.dice[n]);
         }
         calculatePossibleScore(Game.dice);
     }
@@ -301,12 +302,11 @@
 
         //Reroll die
         Game.reroll(diceToReroll);
-        displayDice();
+        displayDice(diceToReroll);
         if(!diceSelected) {
             document.getElementById("instructions").innerHTML = "Select a dice first to reroll!";
         }
     }
-
 
     function submitScore(Category) {
         //Get dice values and calculate score
