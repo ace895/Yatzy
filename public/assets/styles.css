@@ -4,17 +4,7 @@ body {
     background: linear-gradient(to bottom, #58c4d1 50%, #2e949f);
 }
 
-.instructions {
-    background-color: #F0DE55;
-    padding: 15px;
-    margin-right: 10px;
-    border-radius: 3px;
-    width: fit-content;
-    box-shadow: inset -3px -3px 8px rgba(42, 42, 42, 0.5);
-    visibility: hidden;
-    text-align: center;
-}
-
+/*Dice*/
 .dice {
     position: relative;
     margin-bottom: 10px;
@@ -74,6 +64,18 @@ body {
     height: 20px; 
 }
 
+/*Other Components*/
+.instructions {
+    background-color: #F0DE55;
+    padding: 15px;
+    margin-right: 10px;
+    border-radius: 3px;
+    width: fit-content;
+    box-shadow: inset 0px 0px 8px rgba(42, 42, 42, 0.5);
+    visibility: hidden;
+    text-align: center;
+}
+
 #score-table {
     padding: 5px;
     border-collapse: collapse;
@@ -93,15 +95,34 @@ body {
     width: 200px;
 }
 
+#title {
+    margin: 0px; 
+    padding: 0px;
+    text-shadow: 5px 5px 0 #F0DE55;
+}
+
+#upper-title, #lower-title {
+    background-color: #F0DE55;
+    font-size: large;
+}
+
+/*Containers*/
 .row {
     display: flex;
     width: 100%;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 #dice-board {
     flex:1;
 }
 
+/*Buttons*/
 button {
     border: 0;
     width: 100px;
@@ -112,7 +133,7 @@ button {
     box-shadow: inset -3px -3px 10px rgba(0, 0, 0, 0.5);
 }
 
-.play-button{
+.play-button {
     font-size: xx-large;
     width: 200px;
     height: 100px;
@@ -125,10 +146,17 @@ button {
     border-width: 3px;
 }
 
-iframe {
-    border: none;
+#how-to-play {
+    font-size: large;
+    position: relative;
+    top: 30px;
 }
 
+#roll-button:hover, #how-to-play:hover {
+    background-color: #e3d040;
+}
+
+/*Built in*/
 h1 {
     font-size: 80px;
     margin-top: 20px;
@@ -137,4 +165,11 @@ h1 {
 h2 {
     margin-top: 0;
     font-size: xx-large;
+}
+
+hr {
+    border: none;
+    height: 5px;
+    background-color: black;
+    margin-bottom: 40px;
 }
