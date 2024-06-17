@@ -40,7 +40,7 @@ var Game = (function() {
             return;
         }
         for(var i = 0; i < dice_to_reroll.length; i ++) {
-            this.dice[i] = Dice.dice_roll();
+            this.dice[dice_to_reroll[i]] = Dice.dice_roll();
         }
         this.rerolls ++;
     }

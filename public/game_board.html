@@ -12,9 +12,9 @@
 </head>
 
 <body>
+    <center><h1>YATZY</h1></center>
     <div class="row">
         <div id="dice-board">
-            <p>Click a dice to select it for a reroll and click "Reroll" or select a score box to submit a score</p>
             <table id="dice-table">
                 <tr>
                     <td class="dice-td"><div class="dice" id="die1" onclick="select(document.getElementById('die1'))" onload="showNDie(document.getElementById('die1'), 6)"></div></td>
@@ -32,7 +32,8 @@
                     <td class="dice-td"><div class="dice" id="die5" onclick="select(document.getElementById('die5'))" onload="showNDie(document.getElementById('die5'), 6)"></div></td>
                 </tr>
             </table>
-            <button id="roll-button" onclick="rollAll()">Roll</button>
+            <button id="roll-button" onclick="rollAll()"><b>Roll</b></button>
+            <p id="instructions" class="instructions">Click a dice to select it for a reroll and click "Reroll" <br>OR<br> Select a score box to submit a score</p>
         </div>
     
         <div id="score-board">
@@ -169,6 +170,9 @@
 
 <script>
 
+    var selectedColor = "rgb(255, 238, 107)";
+    var unselectedColor = "rgb(255, 255, 255)";
+
     window.onload = function() {
         showNDie(document.getElementById('die1'), 6);
         showNDie(document.getElementById('die2'), 6);
@@ -177,20 +181,23 @@
         showNDie(document.getElementById('die5'), 6);
     };
 
+    //Change the selection of die
     function select(die) {
-        if (document.getElementById("roll-button").innerHTML == "Roll") {
+        if (document.getElementById("roll-button").innerHTML == "<b>Roll</b>") {
             return;
         }
-
-        //Check if die is selected
-        if (die.style.backgroundColor == "rgb(255, 255, 255)" || die.style.backgroundColor == "") {
-            die.style.backgroundColor = "rgb(222, 222, 222)";
-        }
         else {
-            die.style.backgroundColor = "rgb(255, 255, 255)";
+            //Check if die is selected
+            if (die.style.backgroundColor == unselectedColor || die.style.backgroundColor == "") {
+                die.style.backgroundColor = selectedColor;
+            }
+            else {
+                die.style.backgroundColor = unselectedColor;
+            }
         }
     }
 
+    //Change innerHTML of die to show number n
     function showNDie(die, n) {
 
         if (n == 1) {
@@ -229,6 +236,7 @@
 
     }
     
+    //Show rolling animation and set dice face to n
     function showRoll(die, n) {
         var i = 0;
         var roller = setInterval(() => {
@@ -242,34 +250,50 @@
         
     }
 
+    //Reroll selected die
     function reroll() {
         //Check which die are selected and reroll them
+        diceSelected = false;
+
         console.log(document.getElementById("die1").style.backgroundColor );
-        if (document.getElementById("die1").style.backgroundColor == "rgb(222, 222, 222)") {
+        if (document.getElementById("die1").style.backgroundColor == selectedColor) {
             showRoll(document.getElementById("die1"),  Math.floor(Math.random() * 6) + 1);
             select(document.getElementById("die1"));
+            diceSelected = true;
         }
-        if (document.getElementById("die2").style.backgroundColor == "rgb(222, 222, 222)") {
+        if (document.getElementById("die2").style.backgroundColor == selectedColor) {
             showRoll(document.getElementById("die2"),  Math.floor(Math.random() * 6) + 1);
             select(document.getElementById("die2"));
+            diceSelected = true;
         }
-        if (document.getElementById("die3").style.backgroundColor == "rgb(222, 222, 222)") {
+        if (document.getElementById("die3").style.backgroundColor == selectedColor) {
             showRoll(document.getElementById("die3"),  Math.floor(Math.random() * 6) + 1);
             select(document.getElementById("die3"));
+            diceSelected = true;
         }
-        if (document.getElementById("die4").style.backgroundColor == "rgb(222, 222, 222)") {
+        if (document.getElementById("die4").style.backgroundColor == selectedColor) {
             showRoll(document.getElementById("die4"),  Math.floor(Math.random() * 6) + 1);
             select(document.getElementById("die4"));
+            diceSelected = true;
         }
-        if (document.getElementById("die5").style.backgroundColor == "rgb(222, 222, 222)") {
+        if (document.getElementById("die5").style.backgroundColor == selectedColor) {
             showRoll(document.getElementById("die5"),  Math.floor(Math.random() * 6) + 1);
             select(document.getElementById("die5"));
+            diceSelected = true;
+        }
+
+        if (diceSelected) {
+            //Decrement rerolls
+        }
+        else {
+            document.getElementById("instructions").innerHTML = "Select a dice first to reroll!";
         }
     }
 
+    //Roll (or reroll) all dice
     function rollAll() {
         button = document.getElementById("roll-button");
-        if (button.innerHTML == "Reroll") {
+        if (button.innerHTML == "<b>Reroll</b>") {
             reroll();
         }
         else {
@@ -278,13 +302,32 @@
             showRoll(document.getElementById("die3"),  Math.floor(Math.random() * 6) + 1);
             showRoll(document.getElementById("die4"),  Math.floor(Math.random() * 6) + 1);
             showRoll(document.getElementById("die5"),  Math.floor(Math.random() * 6) + 1);
-            button.innerHTML = "Reroll";
+            button.innerHTML = "<b>Reroll</b>";
+            document.getElementById("instructions").style.visibility = "visible";
         }
     
     }
 
     function submitScore(Category) {
         //Get dice values and calculate score
+    }
+
+    //Reset board objects for next turn
+    function resetBoard() {
+        //Reset instructions
+        instructionBox = document.getElementById("instructions");
+        instructionBox.style.visibility = "hidden";
+        instructionBox.innerHTML = "Click a dice to select it for a reroll and click \"Reroll\" <br>OR<br> Select a score box to submit a score";
+        
+        //Reset button
+        document.getElementById("roll-button").innerHTML = "<b>Roll</b>";
+
+        //Reset dice
+        document.getElementById("die1").style.backgroundColor = unselectedColor;
+        document.getElementById("die2").style.backgroundColor = unselectedColor;
+        document.getElementById("die3").style.backgroundColor = unselectedColor;
+        document.getElementById("die4").style.backgroundColor = unselectedColor;
+        document.getElementById("die5").style.backgroundColor = unselectedColor;
     }
 
 </script>

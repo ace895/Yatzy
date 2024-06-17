@@ -1,6 +1,18 @@
 body {
     font-family:'Segoe UI', sans-serif;
     padding: 20px;
+    background: linear-gradient(to bottom, #58c4d1 50%, #2e949f);
+}
+
+.instructions {
+    background-color: #F0DE55;
+    padding: 15px;
+    margin-right: 10px;
+    border-radius: 3px;
+    width: fit-content;
+    box-shadow: inset -3px -3px 8px rgba(42, 42, 42, 0.5);
+    visibility: hidden;
+    text-align: center;
 }
 
 .dice {
@@ -11,10 +23,11 @@ body {
     border: 1px solid black;
     border-radius: 15px;
     background-color: #ffffff;
+    box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .score:hover, .dice:hover{
-    background-color: #dedede;
+    background-color: rgb(255, 245, 170);;
 }
 
 .dice .middle {
@@ -71,6 +84,8 @@ body {
     padding: 5px;
     width: 200px;
     border-style: solid;
+    background-color: white;
+    box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
 }
 
 .dice-td {
@@ -89,9 +104,12 @@ body {
 
 button {
     border: 0;
-    width: 60px;
-    height: 40px;
+    width: 100px;
+    height: 60px;
     border-radius: 10px;
+    font-size: x-large;
+    background-color: #F0DE55;
+    box-shadow: inset -3px -3px 10px rgba(0, 0, 0, 0.5);
 }
 
 .play-button{
@@ -99,6 +117,7 @@ button {
     width: 200px;
     height: 100px;
     background: transparent;
+    box-shadow:none;
 }
 
 .play-button:hover {
@@ -112,4 +131,5 @@ iframe {
 
 h1 {
     font-size: 80px;
+    margin-top: 20px;
 }
