@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <title>Yatzy</title>
     <meta name="viewport" content="width=device-width">
-    <script  src="assets/yatzy_engine.js"></script>
-    <script type="module" src="assets/dice.js"></script>
-    <script type="module" src="assets/yatzy_game.js"></script>
+    <script src="assets/yatzy_engine.js"></script>
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 
@@ -183,11 +181,11 @@
     function rollAll() {
         button = document.getElementById("roll-button");
         if (button.innerHTML == "<b>Reroll</b>") {
-            reroll(game.dice);
+            reroll();
         }
         else {
-            dice = game.rollDice()
-            displayDice(dice);
+            Game.roll();
+            displayDice();
             button.innerHTML = "<b>Reroll</b>";
             document.getElementById("instructions").style.visibility = "visible";
         }
@@ -262,20 +260,19 @@
         
     }
     
-    function displayDice(dice) {
-        for (let i = 0; i < dice.length; i++) {
-            showRoll(document.getElementById("die1"),  dice[i]);
+    function displayDice() {
+        for (let i = 0; i < Game.dice.length; i++) {
+            showRoll(document.getElementById("die" + (i + 1)),  Game.dice[i]);
         }
-        calculatePossibleScore(dice);
+        calculatePossibleScore(Game.dice);
     }
 
     //Reroll selected die
-    function reroll(dice) {
-        //Check which die are selected and reroll them
+    function reroll() {
+        //Check which die are selected
         diceSelected = false;
         const diceToReroll = []; 
 
-        console.log(document.getElementById("die1").style.backgroundColor );
         if (document.getElementById("die1").style.backgroundColor == selectedColor) {
             diceToReroll.push(0);
             select(document.getElementById("die1"));
@@ -301,20 +298,11 @@
             select(document.getElementById("die5"));
             diceSelected = true;
         }
-        if (diceSelected) {
-            //Decrement rerolls
-            const reroll_dice = game.reroll(diceToReroll);
-            let count = 0; 
-            for(let i = 0; i < 5; i++){
-                if(i === diceToReroll[count]){
-                    dice[i] = reroll_dice[count];
-                    count++; 
-                }
 
-            }
-            displayDice(dice);
-        }
-        else {
+        //Reroll die
+        Game.reroll(diceToReroll);
+        displayDice();
+        if(!diceSelected) {
             document.getElementById("instructions").innerHTML = "Select a dice first to reroll!";
         }
     }
@@ -323,7 +311,6 @@
     function submitScore(Category) {
         //Get dice values and calculate score
         dices =[document.getElementById("die1").childElementCount, document.getElementById("die2").childElementCount,document.getElementById("die3").childElementCount,document.getElementById("die4").childElementCount,document.getElementById("die5").childElementCount];
-        console.log(document.getElementById("die1").childElementCount);
         calculateScore(dices, Category);
     }
 
@@ -350,10 +337,9 @@
         sessionStorage.score = JSON.stringify(finalScore); //send the final score to the end page
         window.location.href = "end_page.html";
     }
-    var game = new Game();
+
     window.onload = function() {
        
-        game.start_game();
         showNDie(document.getElementById('die1'), 6);
         showNDie(document.getElementById('die2'), 6);
         showNDie(document.getElementById('die3'), 6);

@@ -1,3 +1,59 @@
+var Dice = {
+    history: [],
+
+    dice_roll() {
+        const roll = Math.floor(Math.random() * 6) + 1;
+        this.history.push(roll);
+        return roll;
+    },
+
+    multi_dice_roll(num) {
+        results = [];
+        for (let i = 0; i < num; i++) {
+            const roll = Math.floor(Math.random() * 6) + 1;
+            results.push(roll);
+            this.history.push(roll);
+        }
+        return results;
+    }
+};
+
+var Game = {
+    dice: new Array(5),
+    roll_num: 0,
+    rerolls: 0,
+
+    get_roll_num() {
+        return this.roll_num;
+    },
+
+    get_dice() {
+        return this.dice;
+    },
+
+    get_rerolls() {
+        return this.rerolls;
+    },
+
+    //Roll all dice
+    roll() {
+        this.roll_num ++;
+        this.rerolls = 0; //Reset rerolls
+        this.dice = Dice.multi_dice_roll(5); //Roll all dice
+    },
+
+    //Takes integer array of dice to reroll and rerolls them
+    reroll(dice_to_reroll) {
+        if (this.rerolls >= 2) {
+            return;
+        }
+        for(var i = 0; i < dice_to_reroll.length; i ++) {
+            this.dice[dice_to_reroll[i]] = Dice.dice_roll();
+        }
+        this.rerolls ++;
+    }
+}
+
 //Game is the current state 
 //Category is which spot the player is going to add to their table 
 function calculateScore(dice, category){
@@ -188,15 +244,15 @@ function count_dice(dice){
      return one,two,three,four,five,six; 
 }
 function calculate_chance(dice){
-    const chance = 0;  
+    chance = 0;  
     for(let i = 0; i < 5; i++){
         chance += dice[i];
     }
     return chance; 
 }
 function calculate_3OfAKind(amount){
-    const kind3 = 0; 
-    for(let i = 0; i < length(amount); i++){
+    kind3 = 0; 
+    for(let i = 0; i < amount.length; i++){
         if(amount[i] > 3){
             kind3 = (i + 1)*3;
         }
@@ -204,8 +260,8 @@ function calculate_3OfAKind(amount){
     return kind3;
 }
 function calculate_4OfAKind(amount){
-    const kind4 = 0; 
-    for(let i = 0; i < length(amount); i++){
+    kind4 = 0; 
+    for(let i = 0; i < amount.length; i++){
         if(amount[i] > 4){
             kind4 = (i + 1)*4;
         }
@@ -213,8 +269,8 @@ function calculate_4OfAKind(amount){
     return kind4; 
 }
 function calculate_yahtzee(amount){
-    const yahtzee = 0; 
-    for(let i = 0; i < length(amount); i++){
+    yahtzee = 0; 
+    for(let i = 0; i < amount.length; i++){
         if(amount[i] > 4){
             yahtzee = (i + 1)*4;
         }
@@ -268,7 +324,7 @@ function calculate_fullHouse(one,two,three,four,five,six){
 function remove_possible_calculation(){
     const scores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score", "chance-score", "three-of-a-kind-score", "four-of-a-kind-score", "yahtzee-score", "sm-straight-score", "lg-straight-score", "full-house-score"];
     scores.forEach(score => {
-        const element = document.getElementById(score);
+        element = document.getElementById(score);
         if (element.style.color === '#808080') {
             element.innerHTML = "";
         }
