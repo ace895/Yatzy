@@ -350,7 +350,7 @@
 
     //Ends the current game
     function endGame() {
-        sessionStorage.score = JSON.stringify(finalScore); //send the final score to the end page
+        sessionStorage.score = JSON.stringify( document.getElementById("total-score").innerHTML); //send the final score to the end page
         window.location.href = "end_page.html";
     }
 
