@@ -189,7 +189,7 @@
             button.innerHTML = "<b>Reroll</b>";
             document.getElementById("instructions").style.visibility = "visible";
         }
-    
+        
     }
 
     //Change the selection of die
@@ -314,8 +314,20 @@
 
     function submitScore(Category) {
         //Get dice values and calculate score
-        calculateScore(Game.get_dice(), Category);
-        resetBoard();
+        var able_to_accept = calculateScore(Game.get_dice(), Category);
+        //see if they can keep going or not 
+        if(able_to_accept){
+            remove_possible_calculation(); 
+            resetBoard();
+        }else{
+
+        }
+        if(document.getElementById("aces-score").innerHTML !== "" && document.getElementById("twos-score").innerHTML !== "" && document.getElementById("threes-score").innerHTML !== "" && document.getElementById("fours-score").innerHTML !== "" && 
+            document.getElementById("fives-score").innerHTML !== "" && document.getElementById("sixes-score").innerHTML !== "" && document.getElementById("three-of-a-kind-score").innerHTML !== "" && document.getElementById("four-of-a-kind-score").innerHTML !== "" && 
+            document.getElementById("yahtzee-score").innerHTML !== "" && document.getElementById("sm-straight-score").innerHTML !== "" && document.getElementById("lg-straight-score").innerHTML !== "" && document.getElementById("full-house-score").innerHTML !== "" && document.getElementById("chance-score").innerHTML !== ""){
+            updateOverallScore(); 
+            endGame();
+        }
     }
 
     //Reset board objects for next turn
@@ -334,9 +346,6 @@
         document.getElementById("die3").style.backgroundColor = unselectedColor;
         document.getElementById("die4").style.backgroundColor = unselectedColor;
         document.getElementById("die5").style.backgroundColor = unselectedColor;
-
-        //reset reroll
-        Game.set_rerolls();
     }
 
     //Ends the current game
