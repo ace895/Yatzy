@@ -176,9 +176,11 @@
 <script>
     var selectedColor = "rgb(255, 238, 107)";
     var unselectedColor = "rgb(255, 255, 255)";
+    var canSubmit = false;
 
     //Roll (or reroll) all dice
     function rollAll() {
+        canSubmit = true;
         button = document.getElementById("roll-button");
         if (button.innerHTML == "<b>Reroll</b>") {
             reroll();
@@ -192,20 +194,57 @@
         
     }
 
-    //Change the selection of die
-    function select(die) {
-        if (document.getElementById("roll-button").innerHTML == "<b>Roll</b>") {
-            return;
-        }
-        else {
-            //Check if die is selected
-            if (die.style.backgroundColor == unselectedColor || die.style.backgroundColor == "") {
-                die.style.backgroundColor = selectedColor;
+    //Reroll selected die
+    function reroll() {
+        //Check which die are selected
+        diceSelected = false;
+        const diceToReroll = []; 
+        if(Game.get_rerolls() >= 3){
+            
+        }else{
+            if (document.getElementById("die1").style.backgroundColor == selectedColor) {
+                diceToReroll.push(0);
+                select(document.getElementById("die1"));
+                diceSelected = true;
+            }
+            if (document.getElementById("die2").style.backgroundColor == selectedColor) {
+                diceToReroll.push(1);
+                select(document.getElementById("die2"));
+                diceSelected = true;
+            }
+            if (document.getElementById("die3").style.backgroundColor == selectedColor) {
+                diceToReroll.push(2);
+                select(document.getElementById("die3"));
+                diceSelected = true;
+            }
+            if (document.getElementById("die4").style.backgroundColor == selectedColor) {
+                diceToReroll.push(3);
+                select(document.getElementById("die4"));
+                diceSelected = true;
+            }
+            if (document.getElementById("die5").style.backgroundColor == selectedColor) {
+                diceToReroll.push(4);
+                select(document.getElementById("die5"));
+                diceSelected = true;
+            }
+
+            //Reroll die
+            Game.reroll(diceToReroll);
+            displayDice(diceToReroll);
+            
+            //Display instructions
+            var instructionBox = document.getElementById("instructions");
+            if(!diceSelected) {
+                instructionBox.innerHTML = "Select a dice first to reroll!";
             }
             else {
-                die.style.backgroundColor = unselectedColor;
+                var currentInstruction = instructionBox.innerHTML;
+                instructionBox.innerHTML = "Rerolls Left: " + (3 - Game.get_rerolls()) + "<br>" + 
+                    "Click a dice to select it for a reroll and click \"Reroll\" <br>OR<br> Select a score box to submit a score"; 
             }
+            
         }
+
     }
 
     //Change innerHTML of die to show number n
@@ -268,65 +307,39 @@
         calculatePossibleScore(Game.get_dice());
     }
 
-    //Reroll selected die
-    function reroll() {
-        //Check which die are selected
-        diceSelected = false;
-        const diceToReroll = []; 
-        if(Game.get_rerolls() >= 2){
-            
-        }else{
-            if (document.getElementById("die1").style.backgroundColor == selectedColor) {
-                diceToReroll.push(0);
-                select(document.getElementById("die1"));
-                diceSelected = true;
+    //Change the selection of die
+    function select(die) {
+        if (document.getElementById("roll-button").innerHTML == "<b>Roll</b>") {
+            return;
+        }
+        else {
+            //Check if die is selected
+            if (die.style.backgroundColor == unselectedColor || die.style.backgroundColor == "") {
+                die.style.backgroundColor = selectedColor;
             }
-            if (document.getElementById("die2").style.backgroundColor == selectedColor) {
-                diceToReroll.push(1);
-                select(document.getElementById("die2"));
-                diceSelected = true;
-            }
-            if (document.getElementById("die3").style.backgroundColor == selectedColor) {
-                diceToReroll.push(2);
-                select(document.getElementById("die3"));
-                diceSelected = true;
-            }
-            if (document.getElementById("die4").style.backgroundColor == selectedColor) {
-                diceToReroll.push(3);
-                select(document.getElementById("die4"));
-                diceSelected = true;
-            }
-            if (document.getElementById("die5").style.backgroundColor == selectedColor) {
-                diceToReroll.push(4);
-                select(document.getElementById("die5"));
-                diceSelected = true;
-            }
-
-            //Reroll die
-            Game.reroll(diceToReroll);
-            displayDice(diceToReroll);
-            if(!diceSelected) {
-                document.getElementById("instructions").innerHTML = "Select a dice first to reroll!";
+            else {
+                die.style.backgroundColor = unselectedColor;
             }
         }
-
     }
 
     function submitScore(Category) {
-        //Get dice values and calculate score
-        var able_to_accept = calculateScore(Game.get_dice(), Category);
-        //see if they can keep going or not 
-        if(able_to_accept){
-            remove_possible_calculation(); 
-            resetBoard();
-        }else{
+        if (canSubmit) {
+            //Get dice values and calculate score
+            var able_to_accept = calculateScore(Game.get_dice(), Category);
+            //see if they can keep going or not 
+            if(able_to_accept){
+                remove_possible_calculation(); 
+                resetBoard();
+            }else{
 
-        }
-        if(document.getElementById("aces-score").innerHTML !== "" && document.getElementById("twos-score").innerHTML !== "" && document.getElementById("threes-score").innerHTML !== "" && document.getElementById("fours-score").innerHTML !== "" && 
-            document.getElementById("fives-score").innerHTML !== "" && document.getElementById("sixes-score").innerHTML !== "" && document.getElementById("three-of-a-kind-score").innerHTML !== "" && document.getElementById("four-of-a-kind-score").innerHTML !== "" && 
-            document.getElementById("yahtzee-score").innerHTML !== "" && document.getElementById("sm-straight-score").innerHTML !== "" && document.getElementById("lg-straight-score").innerHTML !== "" && document.getElementById("full-house-score").innerHTML !== "" && document.getElementById("chance-score").innerHTML !== ""){
-            updateOverallScore(); 
-            endGame();
+            }
+            if(document.getElementById("aces-score").innerHTML !== "" && document.getElementById("twos-score").innerHTML !== "" && document.getElementById("threes-score").innerHTML !== "" && document.getElementById("fours-score").innerHTML !== "" && 
+                document.getElementById("fives-score").innerHTML !== "" && document.getElementById("sixes-score").innerHTML !== "" && document.getElementById("three-of-a-kind-score").innerHTML !== "" && document.getElementById("four-of-a-kind-score").innerHTML !== "" && 
+                document.getElementById("yahtzee-score").innerHTML !== "" && document.getElementById("sm-straight-score").innerHTML !== "" && document.getElementById("lg-straight-score").innerHTML !== "" && document.getElementById("full-house-score").innerHTML !== "" && document.getElementById("chance-score").innerHTML !== ""){
+                updateOverallScore(); 
+                endGame();
+            }
         }
     }
 
@@ -346,6 +359,8 @@
         document.getElementById("die3").style.backgroundColor = unselectedColor;
         document.getElementById("die4").style.backgroundColor = unselectedColor;
         document.getElementById("die5").style.backgroundColor = unselectedColor;
+
+        canSubmit = false;
     }
 
     //Ends the current game

@@ -44,7 +44,7 @@ var Game = {
 
     //Takes integer array of dice to reroll and rerolls them
     reroll(dice_to_reroll) {
-        if (this.rerolls >= 2) {
+        if (this.rerolls >= 3) {
             return;
         }
         for(var i = 0; i < dice_to_reroll.length; i ++) {

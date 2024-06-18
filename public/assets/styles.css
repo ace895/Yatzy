@@ -98,7 +98,6 @@ body {
 #title {
     margin: 0px; 
     padding: 0px;
-    text-shadow: 5px 5px 0 #F0DE55;
 }
 
 #upper-title, #lower-title {
@@ -160,6 +159,7 @@ button {
 h1 {
     font-size: 80px;
     margin-top: 20px;
+    text-shadow: 5px 5px 0 #F0DE55;
 }
 
 h2 {
