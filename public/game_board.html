@@ -265,7 +265,7 @@
             n = dice[i];
             showRoll(document.getElementById("die" + (n + 1)),  Game.dice[n]);
         }
-        calculatePossibleScore(Game.dice);
+        calculatePossibleScore(Game.get_dice());
     }
 
     //Reroll selected die
@@ -273,45 +273,49 @@
         //Check which die are selected
         diceSelected = false;
         const diceToReroll = []; 
+        if(Game.get_rerolls() >= 2){
+            
+        }else{
+            if (document.getElementById("die1").style.backgroundColor == selectedColor) {
+                diceToReroll.push(0);
+                select(document.getElementById("die1"));
+                diceSelected = true;
+            }
+            if (document.getElementById("die2").style.backgroundColor == selectedColor) {
+                diceToReroll.push(1);
+                select(document.getElementById("die2"));
+                diceSelected = true;
+            }
+            if (document.getElementById("die3").style.backgroundColor == selectedColor) {
+                diceToReroll.push(2);
+                select(document.getElementById("die3"));
+                diceSelected = true;
+            }
+            if (document.getElementById("die4").style.backgroundColor == selectedColor) {
+                diceToReroll.push(3);
+                select(document.getElementById("die4"));
+                diceSelected = true;
+            }
+            if (document.getElementById("die5").style.backgroundColor == selectedColor) {
+                diceToReroll.push(4);
+                select(document.getElementById("die5"));
+                diceSelected = true;
+            }
 
-        if (document.getElementById("die1").style.backgroundColor == selectedColor) {
-            diceToReroll.push(0);
-            select(document.getElementById("die1"));
-            diceSelected = true;
-        }
-        if (document.getElementById("die2").style.backgroundColor == selectedColor) {
-            diceToReroll.push(1);
-            select(document.getElementById("die2"));
-            diceSelected = true;
-        }
-        if (document.getElementById("die3").style.backgroundColor == selectedColor) {
-            diceToReroll.push(2);
-            select(document.getElementById("die3"));
-            diceSelected = true;
-        }
-        if (document.getElementById("die4").style.backgroundColor == selectedColor) {
-            diceToReroll.push(3);
-            select(document.getElementById("die4"));
-            diceSelected = true;
-        }
-        if (document.getElementById("die5").style.backgroundColor == selectedColor) {
-            diceToReroll.push(4);
-            select(document.getElementById("die5"));
-            diceSelected = true;
+            //Reroll die
+            Game.reroll(diceToReroll);
+            displayDice(diceToReroll);
+            if(!diceSelected) {
+                document.getElementById("instructions").innerHTML = "Select a dice first to reroll!";
+            }
         }
 
-        //Reroll die
-        Game.reroll(diceToReroll);
-        displayDice(diceToReroll);
-        if(!diceSelected) {
-            document.getElementById("instructions").innerHTML = "Select a dice first to reroll!";
-        }
     }
 
     function submitScore(Category) {
         //Get dice values and calculate score
-        dices =[document.getElementById("die1").childElementCount, document.getElementById("die2").childElementCount,document.getElementById("die3").childElementCount,document.getElementById("die4").childElementCount,document.getElementById("die5").childElementCount];
-        calculateScore(dices, Category);
+        calculateScore(Game.get_dice(), Category);
+        resetBoard();
     }
 
     //Reset board objects for next turn
@@ -330,6 +334,9 @@
         document.getElementById("die3").style.backgroundColor = unselectedColor;
         document.getElementById("die4").style.backgroundColor = unselectedColor;
         document.getElementById("die5").style.backgroundColor = unselectedColor;
+
+        //reset reroll
+        Game.set_rerolls();
     }
 
     //Ends the current game

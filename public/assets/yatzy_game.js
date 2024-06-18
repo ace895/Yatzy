@@ -15,6 +15,9 @@ class Game{
     get_rerolls = function () {
         return this.rerolls;
     }
+    set_rerolls = function(){
+        rerolls = 0; 
+    }
     //Start (or restart) game, initialize variables
     start_game = function() {
         this.roll_num = 0;
@@ -32,8 +35,12 @@ class Game{
         if (this.rerolls >= 2) {
             return;
         }
+        let count = 0; 
         for(var i = 0; i < dice_to_reroll.length; i ++) {
-            this.dice[dice_to_reroll[i]] = Dice.dice_roll();
+            if (dice_to_reroll(count) === i ){
+                this.dice[i] = Dice.dice_roll();
+                count++;
+            }
         }
         this.rerolls ++;
     }
