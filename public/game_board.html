@@ -152,11 +152,6 @@
                             <td class="score" id="chance-score" onclick="submitScore('chance-score')"></td>
                         </tr>
                         <tr>
-                            <td class="score-td">Bonus if total score is >= 63</td>
-                            <td class="score-td">Score 35</td>
-                            <td class="score-td" id="lower-bonus-score"></td>
-                        </tr>
-                        <tr>
                             <td class="score-td">Total of Lower Section</td>
                             <td class="score-td"></td>
                             <td class="score-td" id="lower-total-score"></td>
@@ -332,7 +327,7 @@
                 remove_possible_calculation(); 
                 resetBoard();
             }else{
-
+                return;
             }
             if(document.getElementById("aces-score").innerHTML !== "" && document.getElementById("twos-score").innerHTML !== "" && document.getElementById("threes-score").innerHTML !== "" && document.getElementById("fours-score").innerHTML !== "" && 
                 document.getElementById("fives-score").innerHTML !== "" && document.getElementById("sixes-score").innerHTML !== "" && document.getElementById("three-of-a-kind-score").innerHTML !== "" && document.getElementById("four-of-a-kind-score").innerHTML !== "" && 
@@ -365,8 +360,11 @@
 
     //Ends the current game
     function endGame() {
-        sessionStorage.score = JSON.stringify( document.getElementById("total-score").innerHTML); //send the final score to the end page
-        window.location.href = "end_page.html";
+        //Hide dice board
+        document.getElementById("dice-board").innerHTML = "<h1>CONGRADULATIONS!</h1>" +
+            "<h2 id=\"score\">You scored " + document.getElementById("total-score").innerHTML + " points!</h2>" +
+            "<a href = \"game_board.html\"><button class=\"play-button\"><b>Play Again</b></button></a> ";        
+        document.getElementById("end-board").style.visibility = "visible";
     }
 
     window.onload = function() {
