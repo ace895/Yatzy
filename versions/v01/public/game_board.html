@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Yatzy</title>
+    <meta name="viewport" content="width=device-width">
+    <script src="assets/yatzy_engine.js"></script>
+    <script src="assets/yatzy_ui.js"></script>
+    <script src="assets/yatzy_game.js"></script>
+    <script src="assets/dice.js"></script>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1 id="title">YATZY</h1>
+        <a href="https://www.hasbro.com/common/instruct/yahtzee.pdf" target="_blank">
+            <button id="how-to-play"><b>How to Play</b></button>
+        </a>
+    </div>
+    
+    <hr>
+    <div class="row">
+        <div id="dice-board">
+            <table id="dice-table">
+                <tr>
+                    <td class="dice-td"><div class="dice" id="die1" onclick="select(document.getElementById('die1'))"></div></td>
+                    <td class="dice-td"></td>
+                    <td class="dice-td"><div class="dice" id="die2" onclick="select(document.getElementById('die2'))"></div></td>
+                </tr>
+                <tr>
+                    <td class="dice-td"></td>
+                    <td class="dice-td"><div class="dice" id="die3" onclick="select(document.getElementById('die3'))"></div></td>
+                    <td class="dice-td"></td>
+                </tr>
+                <tr>
+                    <td class="dice-td"><div class="dice" id="die4" onclick="select(document.getElementById('die4'))"></div></td>
+                    <td class="dice-td"></td>
+                    <td class="dice-td"><div class="dice" id="die5" onclick="select(document.getElementById('die5'))"></div></td>
+                </tr>
+            </table>
+            <button id="roll-button" onclick="rollAll()"><b>Roll</b></button>
+            <p id="instructions" class="instructions">Click a dice to select it for a reroll and click "Reroll" <br>OR<br> Select a score box to submit a score</p>
+        </div>
+    
+        <div id="score-board">
+            <div id="upper-score-board">
+                <table id="score-table">
+                    <thead>
+                        <tr>
+                            <td class="score-td" id="upper-title"><b>UPPER SECTION</b></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td"><b>Category</b></td>
+                            <td class="score-td"><b>How to Score</b></td>
+                            <td class="score-td"><b>Score</b></td>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="score-td">Aces</td>
+                            <td class="score-td">Count and add only Aces</td>
+                            <td class="score" id="aces-score" onclick="submitScore('aces-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Twos</td>
+                            <td class="score-td">Count and add only Twos</td>
+                            <td class="score" id="twos-score" onclick="submitScore('twos-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Threes</td>
+                            <td class="score-td">Count and add only Threes</td>
+                            <td class="score" id="threes-score" onclick="submitScore('threes-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Fours</td>
+                            <td class="score-td">Count and add only Aces</td>
+                            <td class="score" id="fours-score" onclick="submitScore('fours-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Fives</td>
+                            <td class="score-td">Count and add only Twos</td>
+                            <td class="score" id="fives-score" onclick="submitScore('fives-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Sixes</td>
+                            <td class="score-td">Count and add only Threes</td>
+                            <td class="score" id="sixes-score" onclick="submitScore('sixes-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Total Score</td>
+                            <td class="score-td"></td>
+                            <td class="score-td" id="upper-subtotal-score"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Bonus if total score is >= 63</td>
+                            <td class="score-td">Score 35</td>
+                            <td class="score-td" id="upper-bonus-score"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Total of Upper Section</td>
+                            <td class="score-td"></td>
+                            <td class="score-td" id="upper-total-score"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <br>
+            <div id="lower-score-board">
+                <table id="score-table">
+                    <thead>
+                        <tr><td class="score-td" id="lower-title"><b>LOWER SECTION</b></td></tr>
+                        <tr>
+                            <td class="score-td"><b>Category</b></td>
+                            <td class="score-td"><b>How to Score</b></td>
+                            <td class="score-td"><b>Score</b></td>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="score-td">3 of a kind</td>
+                            <td class="score-td">Add total of all dice</td>
+                            <td class="score" id="three-of-a-kind-score" onclick="submitScore('three-of-a-kind-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">4 of a kind</td>
+                            <td class="score-td">Add total of all dice</td>
+                            <td class="score" id="four-of-a-kind-score" onclick="submitScore('four-of-a-kind-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Full house</td>
+                            <td class="score-td">Score 25</td>
+                            <td class="score" id="full-house-score" onclick="submitScore('full-house-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Small straight (sequence of 4)</td>
+                            <td class="score-td">Score 30</td>
+                            <td class="score" id="sm-straight-score" onclick="submitScore('sm-straight-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Long straight (sequence of 5)</td>
+                            <td class="score-td">Score 40</td>
+                            <td class="score" id="lg-straight-score" onclick="submitScore('lg-straight-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">YAHTZEE (5 of a kind)</td>
+                            <td class="score-td">Score 50</td>
+                            <td class="score" id="yahtzee-score" onclick="submitScore('yahtzee-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Chance</td>
+                            <td class="score-td">Add total of all dice</td>
+                            <td class="score" id="chance-score" onclick="submitScore('chance-score')"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Total of Lower Section</td>
+                            <td class="score-td"></td>
+                            <td class="score-td" id="lower-total-score"></td>
+                        </tr>
+                        <tr>
+                            <td class="score-td">Grand Total</td>
+                            <td class="score-td"></td>
+                            <td class="score-td" id="total-score"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ </body>
+
+</html>
