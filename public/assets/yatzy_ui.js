@@ -26,30 +26,14 @@ function reroll() {
     if(Game.rerolls >= 3){
         
     }else{
-        if (document.getElementById("die1").style.backgroundColor == selectedColor) {
-            diceToReroll.push(0);
-            select(document.getElementById("die1"));
-            diceSelected = true;
-        }
-        if (document.getElementById("die2").style.backgroundColor == selectedColor) {
-            diceToReroll.push(1);
-            select(document.getElementById("die2"));
-            diceSelected = true;
-        }
-        if (document.getElementById("die3").style.backgroundColor == selectedColor) {
-            diceToReroll.push(2);
-            select(document.getElementById("die3"));
-            diceSelected = true;
-        }
-        if (document.getElementById("die4").style.backgroundColor == selectedColor) {
-            diceToReroll.push(3);
-            select(document.getElementById("die4"));
-            diceSelected = true;
-        }
-        if (document.getElementById("die5").style.backgroundColor == selectedColor) {
-            diceToReroll.push(4);
-            select(document.getElementById("die5"));
-            diceSelected = true;
+        for (var i = 1; i < 6; i ++) {
+            console.log("die"+i);
+            console.log(document.getElementById("die" + i));
+            if (document.getElementById("die" + i).style.backgroundColor == selectedColor) {
+                diceToReroll.push(i - 1);
+                select(document.getElementById("die" + i));
+                diceSelected = true;
+            }
         }
         
         //Display instructions
@@ -149,14 +133,17 @@ function select(die) {
 function submitScore(Category) {
     if (canSubmit) {
         //Get dice values and calculate score
-        var able_to_accept = calculateScore(Game.dice, Category);
+        var scoreToUpdate = calculateScore(Game.dice, Category);
         //see if they can keep going or not 
-        if(able_to_accept){
+        if(scoreToUpdate != null){
+            scoreToUpdate.style.color = 'rgb(0,0,0)'; 
+            scoreToUpdate.style.backgroundColor = '#F0DE55';
             remove_possible_calculation(); 
             resetBoard();
         }else{
             return;
         }
+        //Check if all scores have been submitted
         if(document.getElementById("aces-score").innerHTML !== "" && document.getElementById("twos-score").innerHTML !== "" && document.getElementById("threes-score").innerHTML !== "" && document.getElementById("fours-score").innerHTML !== "" && 
             document.getElementById("fives-score").innerHTML !== "" && document.getElementById("sixes-score").innerHTML !== "" && document.getElementById("three-of-a-kind-score").innerHTML !== "" && document.getElementById("four-of-a-kind-score").innerHTML !== "" && 
             document.getElementById("yahtzee-score").innerHTML !== "" && document.getElementById("sm-straight-score").innerHTML !== "" && document.getElementById("lg-straight-score").innerHTML !== "" && document.getElementById("full-house-score").innerHTML !== "" && document.getElementById("chance-score").innerHTML !== ""){
@@ -177,11 +164,9 @@ function resetBoard() {
     document.getElementById("roll-button").innerHTML = "<b>Roll</b>";
 
     //Reset dice
-    document.getElementById("die1").style.backgroundColor = unselectedColor;
-    document.getElementById("die2").style.backgroundColor = unselectedColor;
-    document.getElementById("die3").style.backgroundColor = unselectedColor;
-    document.getElementById("die4").style.backgroundColor = unselectedColor;
-    document.getElementById("die5").style.backgroundColor = unselectedColor;
+    for (var i = 1; i < 6; i ++) {
+        document.getElementById("die" + i).style.backgroundColor = unselectedColor;
+    }
 
     canSubmit = false;
 }
@@ -196,11 +181,9 @@ function endGame() {
 }
 
 window.onload = function() {
-    
-    showNDie(document.getElementById('die1'), 6);
-    showNDie(document.getElementById('die2'), 6);
-    showNDie(document.getElementById('die3'), 6);
-    showNDie(document.getElementById('die4'), 6);
-    showNDie(document.getElementById('die5'), 6);
+
+    for (var i = 1; i < 6; i ++) {
+        showNDie(document.getElementById("die" + i), 6);
+    }
     
 };

@@ -7,87 +7,70 @@ function calculateScore(dice, category){
     var five = count_dice(dice, 5);
     var six = count_dice(dice,6);
     const amount = [one,two,three,four,five,six]; 
+
+    var scoreToUpdate;
     if(category === "aces-score" && (document.getElementById("aces-score").innerHTML === "" || document.getElementById("aces-score").style.color === 'rgb(128, 128, 128)')){
-        document.getElementById("aces-score").innerHTML = one * 1;
-        document.getElementById("aces-score").style.color = 'rgb(0,0,0)';
-        document.getElementById("aces-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate = document.getElementById("aces-score");
+        scoreToUpdate.innerHTML = one * 1;
     }else if(category === "twos-score" && (document.getElementById("twos-score").innerHTML === "" ||  document.getElementById("twos-score").style.color === 'rgb(128, 128, 128)')){
-        document.getElementById("twos-score").innerHTML = two * 2; 
-        document.getElementById("twos-score").style.color = 'rgb(0,0,0)'; 
-        document.getElementById("twos-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate = document.getElementById("twos-score");
+        scoreToUpdate.innerHTML = two * 2; 
     }else if(category === "threes-score" && (document.getElementById("threes-score").innerHTML === "" || document.getElementById("threes-score").style.color === 'rgb(128, 128, 128)')){
-        document.getElementById("threes-score").innerHTML = three * 3; 
-        document.getElementById("threes-score").style.color = 'rgb(0,0,0)'; 
-        document.getElementById("threes-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate = document.getElementById("threes-score");
+        scoreToUpdate.innerHTML = three * 3; 
     }else if(category === "fours-score" && (document.getElementById("fours-score").innerHTML === "" || document.getElementById("fours-score").style.color === 'rgb(128, 128, 128)')){
-        document.getElementById("fours-score").innerHTML = four * 4; 
-        document.getElementById("fours-score").style.color = 'rgb(0,0,0)';
-        document.getElementById("fours-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate = document.getElementById("fours-score");
+        scoreToUpdate.innerHTML = four * 4; 
     }else if(category === "fives-score" && (document.getElementById("fives-score").innerHTML === "" || document.getElementById("fives-score").style.color === 'rgb(128, 128, 128)')){
-        document.getElementById("fives-score").innerHTML = five * 5; 
-        document.getElementById("fives-score").style.color = 'rgb(0,0,0)';
-        document.getElementById("fives-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate = document.getElementById("fives-score");
+        scoreToUpdate.innerHTML = five * 5; 
     }else if(category === "sixes-score" && (document.getElementById("sixes-score").innerHTML === "" || document.getElementById("sixes-score").style.color === 'rgb(128, 128, 128)')){
-        document.getElementById("sixes-score").innerHTML = six * 6; 
-        document.getElementById("sixes-score").style.color = 'rgb(0,0,0)';
-        document.getElementById("sixes-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate = document.getElementById("sixes-score");
+        scoreToUpdate.innerHTML = six * 6; 
     }else if(category === "chance-score" && (document.getElementById("chance-score").innerHTML === "" || document.getElementById("chance-score").style.color === 'rgb(128, 128, 128)')){
+        scoreToUpdate = document.getElementById("chance-score");
         const chance = calculate_chance(dice);
-        document.getElementById("chance-score").innerHTML = chance;
-        document.getElementById("chance-score").style.color = 'rgb(0,0,0)';
-        document.getElementById("chance-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate.innerHTML = chance;
     }else if(category === "three-of-a-kind-score" && (document.getElementById("three-of-a-kind-score").innerHTML === "" || document.getElementById("three-of-a-kind-score").style.color ==='rgb(128, 128, 128)')){
+        scoreToUpdate = document.getElementById("three-of-a-kind-score");
         kind3 = calculate_3OfAKind(amount);
-        document.getElementById("three-of-a-kind-score").innerHTML = kind3;
-        document.getElementById("three-of-a-kind-score").style.color = 'rgb(0,0,0)';
-        document.getElementById("three-of-a-kind-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate.innerHTML = kind3;
     }else if(category === "four-of-a-kind-score" && (document.getElementById("four-of-a-kind-score").innerHTML === "" || document.getElementById("four-of-a-kind-score").style.color ==='rgb(128, 128, 128)')){
+        scoreToUpdate = document.getElementById("four-of-a-kind-score");
         kind4 = calculate_4OfAKind(amount);
-        document.getElementById("four-of-a-kind-score").innerHTML = kind4;
-        document.getElementById("four-of-a-kind-score").style.color = 'rgb(0,0,0)'; 
-        document.getElementById("four-of-a-kind-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate.innerHTML = kind4;
     }else if(category === "yahtzee-score" && (document.getElementById("yahtzee-score").innerHTML === "" ||  document.getElementById("yahtzee-score").style.color === 'rgb(128, 128, 128)')){
+        scoreToUpdate = document.getElementById("yahtzee-score");
         yahtzee = calculate_yahtzee(amount);
-        document.getElementById("yahtzee-score").innerHTML = yahtzee;
-        document.getElementById("yahtzee-score").style.color = 'rgb(0,0,0)';
-        document.getElementById("yahtzee-score").style.backgroundColor = '#F0DE55';
+        scoreToUpdate.innerHTML = yahtzee;
     }else if(category === "sm-straight-score" && (document.getElementById("sm-straight-score").innerHTML === "" || document.getElementById("sm-straight-score").style.color === 'rgb(128, 128, 128)')){
+        scoreToUpdate = document.getElementById("sm-straight-score");
         sm = calculate_smallStraight(one,two,three,four,five,six);
         if(sm === 30){
-            document.getElementById("sm-straight-score").innerHTML = 30;
-            document.getElementById("sm-straight-score").style.color = 'rgb(0,0,0)';
-            document.getElementById("sm-straight-score").style.backgroundColor = '#F0DE55';
+            scoreToUpdate.innerHTML = 30;
         }else{
-            document.getElementById("sm-straight-score").innerHTML = 0;
-            document.getElementById("sm-straight-score").style.color = 'rgb(0,0,0)';
-            document.getElementById("sm-straight-score").style.backgroundColor = '#F0DE55';
+            scoreToUpdate.innerHTML = 0;
         }
     }else if(category === "lg-straight-score" && (document.getElementById("lg-straight-score").innerHTML === "" || document.getElementById("lg-straight-score").style.color === 'rgb(128, 128, 128)')){
+        scoreToUpdate = document.getElementById("lg-straight-score");
         lg = calculate_largeStraight(one,two,three,four,five,six);
         if(lg === 40){
-            document.getElementById("lg-straight-score").innerHTML = 40;
-            document.getElementById("lg-straight-score").style.color = 'rgb(0,0,0)';
-            document.getElementById("lg-straight-score").style.backgroundColor = '#F0DE55';
+            scoreToUpdate.innerHTML = 40;
         }else {
-            document.getElementById("lg-straight-score").innerHTML = 0;
-            document.getElementById("lg-straight-score").style.color = 'rgb(0,0,0)';
-            document.getElementById("lg-straight-score").style.backgroundColor = '#F0DE55';
+            scoreToUpdate.innerHTML = 0;
         }
     }else if(category === "full-house-score" && (document.getElementById("full-house-score").innerHTML === "" || document.getElementById("full-house-score").style.color === 'rgb(128, 128, 128)')){
+        scoreToUpdate = document.getElementById("full-house-score");
         full_house = calculate_fullHouse(one,two,three,four,five,six);
         if (full_house === 25){
-            document.getElementById("full-house-score").innerHTML = 25;
-            document.getElementById("full-house-score").style.color = 'rgb(0,0,0)';
-            document.getElementById("full-house-score").style.backgroundColor = '#F0DE55';
+            scoreToUpdate.innerHTML = 25;
         }else{
-            document.getElementById("full-house-score").innerHTML = 0;
-            document.getElementById("full-house-score").style.color = 'rgb(0,0,0)';
-            document.getElementById("full-house-score").style.backgroundColor = '#F0DE55';
+            scoreToUpdate.innerHTML = 0;
         }
     }else{
-        return false; 
+        return null; 
     }
-    return true; 
+    return scoreToUpdate; 
 }
 function updateOverallScore(){
     const upperScores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score"];
