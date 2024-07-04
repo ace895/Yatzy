@@ -10,7 +10,7 @@ function rollAll() {
         reroll();
     }
     else {
-        Game.roll();
+        Game.roll(); //**Call roll all */
         displayDice([0, 1, 2, 3, 4]);
         button.innerHTML = "<b>Reroll</b>";
         document.getElementById("instructions").style.visibility = "visible";
@@ -23,12 +23,8 @@ function reroll() {
     //Check which die are selected
     diceSelected = false;
     const diceToReroll = []; 
-    if(Game.rerolls >= 3){
-        
-    }else{
+    if(Game.rerolls < 3){
         for (var i = 1; i < 6; i ++) {
-            console.log("die"+i);
-            console.log(document.getElementById("die" + i));
             if (document.getElementById("die" + i).style.backgroundColor == selectedColor) {
                 diceToReroll.push(i - 1);
                 select(document.getElementById("die" + i));
@@ -43,7 +39,7 @@ function reroll() {
         }
         else {  
             //Reroll die
-            Game.reroll(diceToReroll);
+            Game.reroll(diceToReroll); //**Call reroll**/
             displayDice(diceToReroll);
             
             instructionBox.innerHTML = "Rerolls Left: " + (3 - Game.rerolls) + "<br>" + 
@@ -130,24 +126,29 @@ function select(die) {
     }
 }
 
-function submitScore(Category) {
+function submitScore(category) {
     if (canSubmit) {
-        //Get dice values and calculate score
-        var scoreToUpdate = calculateScore(Game.dice, Category);
-        //see if they can keep going or not 
-        if(scoreToUpdate != null){
-            scoreToUpdate.style.color = 'rgb(0,0,0)'; 
-            scoreToUpdate.style.backgroundColor = '#F0DE55';
-            remove_possible_calculation(); 
-            resetBoard();
-        }else{
+
+        //Check if score can be submitted to
+        if (!document.getElementById(category).innerHTML === "" && !document.getElementById(category).style.color === 'rgb(128, 128, 128)') {
             return;
         }
+
+        //Get dice values and calculate score
+        var newScore = calculateScore(Game.dice, category); //**Get submitted score */
+
+        //Update score and score display
+        document.getElementById(category).innerHTML = newScore;
+        document.getElementById(category).style.color = 'rgb(0,0,0)'; 
+        document.getElementById(category).style.backgroundColor = '#F0DE55';
+        remove_possible_calculation();
+        resetBoard();
+
         //Check if all scores have been submitted
         if(document.getElementById("aces-score").innerHTML !== "" && document.getElementById("twos-score").innerHTML !== "" && document.getElementById("threes-score").innerHTML !== "" && document.getElementById("fours-score").innerHTML !== "" && 
             document.getElementById("fives-score").innerHTML !== "" && document.getElementById("sixes-score").innerHTML !== "" && document.getElementById("three-of-a-kind-score").innerHTML !== "" && document.getElementById("four-of-a-kind-score").innerHTML !== "" && 
-            document.getElementById("yahtzee-score").innerHTML !== "" && document.getElementById("sm-straight-score").innerHTML !== "" && document.getElementById("lg-straight-score").innerHTML !== "" && document.getElementById("full-house-score").innerHTML !== "" && document.getElementById("chance-score").innerHTML !== ""){
-            updateOverallScore(); 
+            document.getElementById("yahtzee-score").innerHTML !== "" && document.getElementById("sm-straight-score").innerHTML !== "" && document.getElementById("lg-straight-score").innerHTML !== "" && 
+            document.getElementById("full-house-score").innerHTML !== "" && document.getElementById("chance-score").innerHTML !== ""){
             endGame();
         }
     }
@@ -173,11 +174,21 @@ function resetBoard() {
 
 //Ends the current game
 function endGame() {
+
+    //Display final scores
+    var bonus = getBonus(); //**Get bonus, lower, upper scores to display */
+    var upperScore = getUpperScore(); //** */
+    var lowerScore = getLowerScore(); //** */
+    document.getElementById("upper-subtotal-score").innerHTML = upperScore;
+    document.getElementById("upper-bonus-score").innerHTML = bonus;
+    document.getElementById("upper-total-score").innerHTML = upperScore + bonus;
+    document.getElementById("lower-total-score").innerHTML = lowerScore;
+    document.getElementById("total-score").innerHTML = upperScore + lowerScore;
+
     //Hide dice board
     document.getElementById("dice-board").innerHTML = "<h1>CONGRADULATIONS!</h1>" +
         "<h2 id=\"score\">You scored " + document.getElementById("total-score").innerHTML + " points!</h2>" +
-        "<a href = \"game_board.html\"><button class=\"play-button\"><b>Play Again</b></button></a> ";        
-    document.getElementById("end-board").style.visibility = "visible";
+        "<a href = \"game_board.html\"><button class=\"play-button\"><b>Play Again</b></button></a> ";
 }
 
 window.onload = function() {
