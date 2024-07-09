@@ -3,14 +3,14 @@ var unselectedColor = "rgb(255, 255, 255)";
 var canSubmit = false;
 
 //Roll (or reroll) all dice
-function rollAll() {
+async function rollAll() {
     canSubmit = true;
     button = document.getElementById("roll-button");
     if (button.innerHTML == "<b>Reroll</b>") {
         reroll();
     }
     else {
-        Game.roll(); //**Call roll all */
+        await callWithoutParam("roll");
         displayDice([0, 1, 2, 3, 4]);
         button.innerHTML = "<b>Reroll</b>";
         document.getElementById("instructions").style.visibility = "visible";
@@ -19,11 +19,12 @@ function rollAll() {
 }
 
 //Reroll selected die
-function reroll() {
+async function reroll() {
     //Check which die are selected
     diceSelected = false;
     const diceToReroll = []; 
-    if(Game.rerolls < 3){
+    const rerolls = await call("getRerolls");
+    if(rerolls < 3){
         for (var i = 1; i < 6; i ++) {
             if (document.getElementById("die" + i).style.backgroundColor == selectedColor) {
                 diceToReroll.push(i - 1);
@@ -39,10 +40,11 @@ function reroll() {
         }
         else {  
             //Reroll die
-            Game.reroll(diceToReroll); //**Call reroll**/
-            displayDice(diceToReroll);
+            if (callWithParam("reroll", diceToReroll)) {
+                displayDice(diceToReroll);
+            }
             
-            instructionBox.innerHTML = "Rerolls Left: " + (3 - Game.rerolls) + "<br>" + 
+            instructionBox.innerHTML = "Rerolls Left: " + (3 - rerolls) + "<br>" + 
                 "Click a dice to select it for a reroll and click \"Reroll\" <br>OR<br> Select a score box to submit a score";
         }
         
@@ -102,12 +104,13 @@ function showRoll(die, n) {
     
 }
 
-function displayDice(dice) {
+async function displayDice(dice) {
+    var gameDice = await callWithoutParam("getDice");
     for (let i = 0; i < dice.length; i++) {
         n = dice[i];
-        showRoll(document.getElementById("die" + (n + 1)),  Game.dice[n]);
+        showRoll(document.getElementById("die" + (n + 1)),  gameDice[n]); 
     }
-    calculatePossibleScore(Game.dice);
+    calculatePossibleScore(gameDice);
 }
 
 //Change the selection of die
@@ -135,7 +138,7 @@ function submitScore(category) {
         }
 
         //Get dice values and calculate score
-        var newScore = calculateScore(Game.dice, category); //**Get submitted score */
+        var newScore = callWithParam("calculateScore", category); 
 
         //Update score and score display
         document.getElementById(category).innerHTML = newScore;
@@ -176,9 +179,9 @@ function resetBoard() {
 function endGame() {
 
     //Display final scores
-    var bonus = getBonus(); //**Get bonus, lower, upper scores to display */
-    var upperScore = getUpperScore(); //** */
-    var lowerScore = getLowerScore(); //** */
+    var bonus = callWithoutParam("getBonus");
+    var upperScore = callWithoutParam("getUpperScore");
+    var lowerScore = callWithoutParam("getLowerScore");
     document.getElementById("upper-subtotal-score").innerHTML = upperScore;
     document.getElementById("upper-bonus-score").innerHTML = bonus;
     document.getElementById("upper-total-score").innerHTML = upperScore + bonus;
@@ -189,6 +192,31 @@ function endGame() {
     document.getElementById("dice-board").innerHTML = "<h1>CONGRADULATIONS!</h1>" +
         "<h2 id=\"score\">You scored " + document.getElementById("total-score").innerHTML + " points!</h2>" +
         "<a href = \"game_board.html\"><button class=\"play-button\"><b>Play Again</b></button></a> ";
+}
+
+const upperScores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score"];
+const lowerScores = ["chance-score", "three-of-a-kind-score", "four-of-a-kind-score", "yahtzee-score", "sm-straight-score", "lg-straight-score", "full-house-score"];
+const scores = upperScores.concat(lowerScores);  
+
+// Function after rolling, the gray text should become blank again 
+function remove_possible_calculation(){
+    scores.forEach(score => {
+        element = document.getElementById(score);
+        if (element.style.color === 'rgb(128, 128, 128)') {
+            element.innerHTML = "";
+        }
+    });
+}
+
+//Calculates possible scores for each category after each roll
+function calculatePossibleScore(dice){
+    for (var category of scores) {
+        if(document.getElementById(category).innerHTML === "" || document.getElementById(category).style.color === 'rgb(128, 128, 128)') {
+            document.getElementById(category).innerHTML = callWithParam("calculateScore", category); 
+            document.getElementById(category).style.color = 'rgb(128, 128, 128)';
+        }
+    }
+
 }
 
 window.onload = function() {

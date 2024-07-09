@@ -13,6 +13,13 @@ class YatzyGame {
         $this->roll_num = 0;
     }
 
+    function get_dice() {
+        return $this->dice;
+    }
+    function get_rerolls() {
+        return $this->rerolls;
+    }
+
     function roll() {
         //Roll all dice
         $d = new Dice(1, 6);
@@ -31,8 +38,10 @@ class YatzyGame {
                 $this->dice[$dice_to_reroll[$i]] = $d->roll();
             }
             $this->rerolls ++;
+            return true;
 
         }
+        return false;
 
     }
 
