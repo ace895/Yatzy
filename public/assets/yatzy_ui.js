@@ -23,7 +23,7 @@ async function reroll() {
     //Check which die are selected
     diceSelected = false;
     const diceToReroll = []; 
-    const rerolls = await call("getRerolls");
+    const rerolls = await callWithoutParam("getRerolls");
     if(rerolls < 3){
         for (var i = 1; i < 6; i ++) {
             if (document.getElementById("die" + i).style.backgroundColor == selectedColor) {
@@ -110,7 +110,7 @@ async function displayDice(dice) {
         n = dice[i];
         showRoll(document.getElementById("die" + (n + 1)),  gameDice[n]); 
     }
-    calculatePossibleScore(gameDice);
+    calculatePossibleScore();
 }
 
 //Change the selection of die
@@ -209,7 +209,7 @@ function remove_possible_calculation(){
 }
 
 //Calculates possible scores for each category after each roll
-function calculatePossibleScore(dice){
+function calculatePossibleScore(){
     for (var category of scores) {
         if(document.getElementById(category).innerHTML === "" || document.getElementById(category).style.color === 'rgb(128, 128, 128)') {
             document.getElementById(category).innerHTML = callWithParam("calculateScore", category); 

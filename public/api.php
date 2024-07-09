@@ -10,10 +10,10 @@
 
     switch ($_GET["action"] ?? "version") {
     case "roll":
-        $d = new Dice();
-        $data = ["value" => $d->roll()];
+        $data = ["value" => $game->roll()];
         break;
     case "reroll":
+        $param = json_decode($_GET["param"], true);
         $data = ["value" => $game->reroll($param)];
         break;
     case "getRerolls":
@@ -32,7 +32,9 @@
         $data =  ["value" => $engine->getLowerScore($dom)];
         break;
     case "calculateScore":
-        $data =  ["value" => $engine->calculateScore($param)];
+        $param = $_GET["param"];
+        $category = substr($param, 1, -1);
+        $data =  ["value" => $engine->calc_score($category)];
         break;
     default:
         $data = null;
