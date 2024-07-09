@@ -36,11 +36,28 @@
         $category = substr($param, 1, -1);
         $data =  ["value" => $engine->calc_score($category)];
         break;
+    case "submit_score":
+        $category = $_POST["category"] ?? null;
+        if ($category && in_array($category, $yatzyEngine->scores)) {
+            // Calculate score in YatzyEngine and add to Leaderboard
+            $newScore = $yatzyEngine->calc_score($category);
+            $leaderboard->addScore("Player1", $newScore); 
+            $data = ["message" => "Score submitted successfully"];
+        } else {
+            $data = ["error" => "Invalid category or missing category parameter"];
+        }
+        break;
+    case "leaderboard":
+        $limit = $_GET["limit"] ?? 10; // Default limit is 10
+        $topScores = $leaderboard->getTopScores($limit);
+        $data = ["leaderboard" => $topScores];
+        break;
     default:
         $data = null;
     }
 
     header("Content-Type: application/json");
     echo json_encode($data);
+
 ?>
 
