@@ -4,9 +4,11 @@
     use Yatzy\App\Models\Dice;
     use Yatzy\App\Models\YatzyGame;
     use Yatzy\App\Models\YatzyEngine;
+    use Yatzy\App\Models\Leaderboard;
 
     $game = new YatzyGame();
     $engine = new YatzyEngine();
+    $leaderboard = new Leaderboard();
 
     switch ($_GET["action"] ?? "version") {
     case "roll":

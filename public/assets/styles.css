@@ -173,3 +173,44 @@ hr {
     background-color: black;
     margin-bottom: 40px;
 }
+
+/*LeaderBoard*/ 
+.leaderboard-container {
+    width: 100%;
+}
+
+.leaderboard-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard-container th, .leaderboard-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.leaderboard-container th {
+    background-color: #f2f2f2;
+}
+
+/*Star Page */
+.start_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+.start_header{
+    flex: 1;
+}
+.leaderboard-content {
+    padding-top: 100px; 
+    width: 40%;
+}
+iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+

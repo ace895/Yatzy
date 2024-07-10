@@ -4,15 +4,8 @@ namespace Yatzy\App\Models;
 class YatzyEngine {
 
     public $game;
-    private $upperScores;
-    private $lowerScores;
-    private $scores;
-    protected $dom;
     function __construct() {
         $this->game = new YatzyGame();
-        $this->upperScores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score"];
-        $this->lowerScores = ["chance-score", "three-of-a-kind-score", "four-of-a-kind-score", "yahtzee-score", "sm-straight-score", "lg-straight-score", "full-house-score"];
-        $this->scores = array_merge($this->upperScores, $this->lowerScores);
     }
 
     function calc_score($category) {

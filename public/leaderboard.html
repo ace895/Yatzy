@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Yatzy</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body>
+    <div class="leaderboard-container">
+        <h2>Leaderboard</h2>
+        <table id="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-table-body">
+                <!-- Leaderboard data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("api.php?action=leaderboard")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.leaderboard) {
+                        const leaderboardBody = document.getElementById("leaderboard-table-body");
+                        leaderboardBody.innerHTML = "";
+                        data.leaderboard.forEach((entry, index) => {
+                            const row = document.createElement("tr");
+                            const rankCell = document.createElement("td");
+                            const nameCell = document.createElement("td");
+                            const scoreCell = document.createElement("td");
+
+                            rankCell.textContent = index + 1;
+                            nameCell.textContent = entry.player;
+                            scoreCell.textContent = entry.score;
+
+                            row.appendChild(rankCell);
+                            row.appendChild(nameCell);
+                            row.appendChild(scoreCell);
+                            leaderboardBody.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error fetching leaderboard:', error));
+        });
+    </script>
+</body>
+</html>

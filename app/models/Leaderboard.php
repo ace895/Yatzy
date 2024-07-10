@@ -27,8 +27,5 @@ class Leaderboard {
     public function clearScores() {
         $this->scores = [];
     }
-
-    // Additional methods as needed
 }
 
-?>
