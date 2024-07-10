@@ -13,7 +13,6 @@ class YatzyEngine {
         $this->upperScores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score"];
         $this->lowerScores = ["chance-score", "three-of-a-kind-score", "four-of-a-kind-score", "yahtzee-score", "sm-straight-score", "lg-straight-score", "full-house-score"];
         $this->scores = array_merge($this->upperScores, $this->lowerScores);
-        //$this->loadHTML();
     }
 
     function calc_score($category) {
@@ -105,40 +104,6 @@ class YatzyEngine {
             }
             return 0; 
         }
-    }
-
-    public function getUpperScore(\DOMDocument $dom): int {
-        $upperScore = 0;
-        foreach ($this->upperScores as $score) {
-            $element = $dom->getElementById($score);
-            if ($element) {
-                $upperScore += (int)$element->nodeValue;
-            }
-        }
-        return $upperScore;
-    }
-
-    public function getBonus(\DOMDocument $dom): int {
-        return $this->getUpperScore($dom) >= 63 ? 35 : 0;
-    }
-
-    public function getLowerScore(\DOMDocument $dom): int {
-        $lowerScore = 0;
-        foreach ($this->lowerScores as $score) {
-            $element = $dom->getElementById($score);
-            if ($element) {
-                $lowerScore += (int)$element->nodeValue;
-            }
-        }
-        return $lowerScore;
-    }
-    public function loadHtmlDom(string $filePath): \DOMDocument {
-        $html = file_get_contents($filePath);
-        $dom = new \DOMDocument;
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($html);
-        libxml_clear_errors();
-        return $dom;
     }
 
 }

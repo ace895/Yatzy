@@ -5,6 +5,8 @@ class YatzyGame {
 
     public $dice;
     public $rerolls;
+    public $upper_score;
+    public $lower_score;
 
     function __construct() {
         if (session_status() === PHP_SESSION_NONE) {
@@ -17,10 +19,19 @@ class YatzyGame {
         if (!isset($_SESSION["rerolls"])) {
             $_SESSION["rerolls"] = 0;
         }
+        if (!isset($_SESSION["upper_score"])) {
+            $_SESSION["upper_score"] = 0;
+        }
+        if (!isset($_SESSION["lower_score"])) {
+            $_SESSION["lower_score"] = 0;
+        }
 
         //Load values from $_SESSION
         $this->dice = $_SESSION["dice"];
         $this->rerolls = $_SESSION["rerolls"];
+        $this->upper_score = $_SESSION["upper_score"];
+        $this->lower_score = $_SESSION["lower_score"];
+
     }
 
     function get_dice() {
@@ -28,6 +39,15 @@ class YatzyGame {
     }
     function get_rerolls() {
         return $this->rerolls;
+    }
+    function get_upper_score() {
+        return $this->upper_score;
+    }
+    function get_lower_score() {
+        return $this->lower_score;
+    }
+    function get_bonus() {
+        return $this->upper_score >= 63 ? 35 : 0;
     }
 
     function roll() {
@@ -55,6 +75,32 @@ class YatzyGame {
         }
         return false;
 
+    }
+
+    //Update current score
+    function submit_score($score, $category) {
+        $upper_scores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score"];
+        $is_upper = in_array($category, $upper_scores);
+        if ($is_upper) {
+            echo "Submitting upper score";
+            $this->upper_score += $score;
+            $_SESSION["upper_score"] = $this->upper_score;
+        }
+        else {
+            echo "Submitting lower score";
+            $this->lower_score += $score;
+            $_SESSION["lower_score"] = $this->lower_score;
+        }
+    }
+
+    //Resets scores
+    function reset_game() {
+        $this->lower_score = 0;
+        $this->upper_score = 0;
+        $this->rerolls = 0;
+        $_SESSION["lower_score"] = 0;
+        $_SESSION["upper_score"] = 0;
+        $_SESSION["rerolls"] = 0;
     }
 
     //Updates game state in $_SESSION

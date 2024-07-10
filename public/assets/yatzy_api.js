@@ -19,6 +19,18 @@ async function callWithParam(f, param) {
     return response.value;
 }
 
+async function addScore(score, category) {
+    await $.ajax({
+        type: "GET",
+        url: "../api.php",
+        data: {
+            action: "submitScore",
+            score: score,
+            category: category,
+        }
+    });
+}
+
 //Debugging purposes
 async function getSession() { 
     const response = await $.ajax({

@@ -7,7 +7,6 @@
 
     $game = new YatzyGame();
     $engine = new YatzyEngine();
-    $dom = $engine->loadHtmlDom("game_board.html");
 
     switch ($_GET["action"] ?? "version") {
     case "roll":
@@ -17,6 +16,12 @@
         $param = json_decode($_GET["param"], true);
         $data = ["value" => $game->reroll($param)];
         break;
+    case "submitScore":
+        $score = $_GET["score"];
+        $category = $_GET["category"];
+        $game->submit_score($score, $category);
+        $data = ["value" => $_SESSION];
+        break;
     case "getRerolls":
         $data = ["value" => $game->get_rerolls()];
         break;
@@ -24,13 +29,13 @@
         $data = ["value" => $game->get_dice()];
         break;
     case "getBonus":
-        $data =  ["value" => $engine->getBonus($dom)];
+        $data =  ["value" => $game->get_bonus()];
         break;
     case "getUpperScore":
-        $data =  ["value" => $engine->getUpperScore($dom)];
+        $data =  ["value" => $game->get_upper_score()];
         break;
     case "getLowerScore":
-        $data =  ["value" => $engine->getLowerScore($dom)];
+        $data =  ["value" => $game->get_lower_score()];
         break;
     case "calculateScore":
         $param = $_GET["param"];
@@ -55,6 +60,9 @@
         break;
     case "getSession" :
         $data = ["value" => $_SESSION];
+        break;
+    case "resetGame":
+        $data = ["value" => $game->reset_game()];
         break;
     default:
         $data = null;

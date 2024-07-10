@@ -141,6 +141,7 @@ async function submitScore(category) {
 
         //Get dice values and calculate score
         var newScore = await callWithParam("calculateScore", category); 
+        await addScore(newScore, category); //Update score
 
         //Update score and score display
         document.getElementById(category).innerHTML = newScore;
@@ -194,6 +195,9 @@ async function endGame() {
     document.getElementById("dice-board").innerHTML = "<h1 style=\"font-size: 60px\">CONGRADULATIONS!</h1>" +
         "<h2 id=\"score\">You scored " + document.getElementById("total-score").innerHTML + " points!</h2>" +
         "<a href = \"game_board.html\"><button class=\"play-button\"><b>Play Again</b></button></a> ";
+
+    //Clear session
+    await callWithoutParam("resetGame");
 }
 
 const upperScores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score"];
