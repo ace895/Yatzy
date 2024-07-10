@@ -1,4 +1,5 @@
 <?php
+
     require_once('_config.php');
     use Yatzy\App\Models\Dice;
     use Yatzy\App\Models\YatzyGame;
@@ -38,9 +39,9 @@
         break;
     case "submit_score":
         $category = $_POST["category"] ?? null;
-        if ($category && in_array($category, $yatzyEngine->scores)) {
+        if ($category && in_array($category, $engine->scores)) {
             // Calculate score in YatzyEngine and add to Leaderboard
-            $newScore = $yatzyEngine->calc_score($category);
+            $newScore = $engine->calc_score($category);
             $leaderboard->addScore("Player1", $newScore); 
             $data = ["message" => "Score submitted successfully"];
         } else {
@@ -51,6 +52,9 @@
         $limit = $_GET["limit"] ?? 10; // Default limit is 10
         $topScores = $leaderboard->getTopScores($limit);
         $data = ["leaderboard" => $topScores];
+        break;
+    case "getSession" :
+        $data = ["value" => $_SESSION];
         break;
     default:
         $data = null;

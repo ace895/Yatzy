@@ -4,8 +4,6 @@ async function callWithoutParam(f) {
         type: "GET",
         url: ("../api.php?action=" + f)
     });
-    console.log(f + ": ");
-    console.log(response);
     return response.value;
 }
 
@@ -18,7 +16,15 @@ async function callWithParam(f, param) {
             param: JSON.stringify(param)
         }
     });
-    console.log(f + ": ");
-    console.log(response);
     return response.value;
+}
+
+//Debugging purposes
+async function getSession() { 
+    const response = await $.ajax({
+        type: "GET",
+        url: "../api.php?action=getSession"
+    });
+    console.log("SESSION");
+    console.log(response);
 }
