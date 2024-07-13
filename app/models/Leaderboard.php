@@ -3,28 +3,26 @@ namespace Yatzy\App\Models;
 
 class Leaderboard {
 
-    private $scores;
+    private $players;
 
     function __construct() {
-        $this->scores = [];
+        if (isset($_SESSION['leaderboard'])) {
+            $this->players = $_SESSION['leaderboard'];
+        } else {
+            $this->players = [];
+        }
     }
 
     public function addPlayer($playerName, $score) {
-        $this->scores[] = [
-            'player' => $playerName,
-            'score' => $score
-        ];
-        // Sort scores in descending order based on score
-        usort($this->scores, function($a, $b) {
-            return $b['score'] - $a['score'];
+        $this->players[] = ['player' => $playerName, 'score' => $score];
+        usort($this->players, function($a, $b) {
+            return $b['score'] <=> $a['score'];
         });
+        $_SESSION['leaderboard'] = $this->players;
     }
 
     public function getTopScores($limit = 10) {
-        if(sizeof(scores) != 0){
-            return array_slice($this->scores, 0, $limit);
-        }
-        return;
+        return array_slice($this->players, 0, $limit);
     }
 }
 

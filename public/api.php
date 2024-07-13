@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     require_once('_config.php');
     use Yatzy\App\Models\Dice;
     use Yatzy\App\Models\YatzyGame;
@@ -51,9 +51,7 @@
         $data = ["value" => $_SESSION];
         break;
     case "leaderboard":
-        $limit = $_GET["limit"] ?? 10; // Default limit is 10
-        $topScores = $leaderboard->getTopScores($limit);
-        $data = ["leaderboard" => $topScores];
+        $data = ['leaderboard' => $leaderboard->getTopScores()];
         break;
     case "getSession" :
         $data = ["value" => $_SESSION];

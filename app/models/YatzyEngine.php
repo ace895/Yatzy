@@ -33,8 +33,8 @@ class YatzyEngine {
             $total = 0;
             $isThreeOfAKind = false;
             foreach ($count as $num => $c) {
+                $total += $num*$c;
                 if ($c >= 3) {
-                    $total = $num*3;
                     $isThreeOfAKind = true;
                 }
             }
@@ -44,8 +44,8 @@ class YatzyEngine {
             $total = 0;
             $isFourOfAKind = false;
             foreach ($count as $num => $c) {
+                $total += $num*$c;
                 if ($c >= 4) {
-                    $total = $num*4;
                     $isFourOfAKind = true;
                 }
             }

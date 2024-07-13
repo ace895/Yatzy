@@ -189,12 +189,12 @@ async function endGame() {
     document.getElementById("upper-bonus-score").innerHTML = bonus;
     document.getElementById("upper-total-score").innerHTML = upperScore + bonus;
     document.getElementById("lower-total-score").innerHTML = lowerScore;
-    document.getElementById("total-score").innerHTML = upperScore + lowerScore;
+    document.getElementById("total-score").innerHTML = upperScore + lowerScore + bonus;
 
     //Hide dice board
     document.getElementById("dice-board").innerHTML = "<h1 style=\"font-size: 60px\">CONGRADULATIONS!</h1>" +
         "<h2 id=\"score\">You scored " + document.getElementById("total-score").innerHTML + " points!</h2>" +
-        "<a href = \"game_board.html\"><button class=\"play-button\"><b>Play Again</b></button></a> ";
+        "<a href = \"game_board.html\"><button class=\"play-button\"><b>Play Again</b></button></a> <br><br>";
 
     // Get player name 
     var playerName = prompt("Enter your name:");
@@ -204,6 +204,13 @@ async function endGame() {
 
     //Clear session
     await callWithoutParam("resetGame");
+
+    // Display leaderboard
+    const leaderboardIframe = document.createElement("iframe");
+    leaderboardIframe.src = "leaderboard.html";
+    leaderboardIframe.style.width = "100%";
+    leaderboardIframe.style.height = "500px";
+    document.getElementById("dice-board").appendChild(leaderboardIframe);
 }
 
 const upperScores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score"];

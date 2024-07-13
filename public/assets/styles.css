@@ -177,6 +177,7 @@ hr {
 /*LeaderBoard*/ 
 .leaderboard-container {
     width: 100%;
+    background-color: transparent;
 }
 
 .leaderboard-container table {
@@ -188,10 +189,7 @@ hr {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
-}
-
-.leaderboard-container th {
-    background-color: #f2f2f2;
+    background: transparent;
 }
 
 /*Star Page */
@@ -205,6 +203,7 @@ hr {
     flex: 1;
 }
 .leaderboard-content {
+    background-color: transparent;
     padding-top: 100px; 
     width: 40%;
 }

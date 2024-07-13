@@ -24,4 +24,6 @@ The overall design we decide on was the keep it simple and minimalistic with onl
 
 [Game Board](assets/design_system/game_board.png)
 
+[Leaderboard](assets/design_system/leaderboard.png)
+
 [End Page](assets/design_system/end_page.png)
