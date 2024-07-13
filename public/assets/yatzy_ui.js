@@ -208,8 +208,6 @@ async function endGame() {
     // Display leaderboard
     const leaderboardIframe = document.createElement("iframe");
     leaderboardIframe.src = "leaderboard.html";
-    leaderboardIframe.style.width = "100%";
-    leaderboardIframe.style.height = "500px";
     document.getElementById("dice-board").appendChild(leaderboardIframe);
 }
 
