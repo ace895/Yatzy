@@ -9,7 +9,7 @@ class Leaderboard {
         $this->scores = [];
     }
 
-    public function addScore($playerName, $score) {
+    public function addPlayer($playerName, $score) {
         $this->scores[] = [
             'player' => $playerName,
             'score' => $score
@@ -21,11 +21,10 @@ class Leaderboard {
     }
 
     public function getTopScores($limit = 10) {
-        return array_slice($this->scores, 0, $limit);
-    }
-
-    public function clearScores() {
-        $this->scores = [];
+        if(sizeof(scores) != 0){
+            return array_slice($this->scores, 0, $limit);
+        }
+        return;
     }
 }
 

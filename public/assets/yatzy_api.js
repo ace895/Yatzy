@@ -31,6 +31,18 @@ async function addScore(score, category) {
     });
 }
 
+async function addToFinalScore(playerName, totalScore){
+    await $.ajax({
+        type: "GET",
+        url: "../api.php",
+        data: {
+            action: "submit_final_score",
+            playerName: playerName,
+            totalScore: totalScore,
+        }
+    });
+}
+
 //Debugging purposes
 async function getSession() { 
     const response = await $.ajax({

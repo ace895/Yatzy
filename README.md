@@ -6,4 +6,4 @@ Check out the [Design System](/docs/design_system.md) that has been implement in
 
 Check out our [Portfolio](https://github.com/ace895/Portfolio) with our Yatzy game in it. 
 
-If your interested in out HTML, CSS and Javascript version of the yatzy game. [Click Link](/versions/v01)
+If your interested in our HTML, CSS and Javascript version of the yatzy game. [Click Link](/versions/v01)

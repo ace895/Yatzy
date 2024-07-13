@@ -196,6 +196,12 @@ async function endGame() {
         "<h2 id=\"score\">You scored " + document.getElementById("total-score").innerHTML + " points!</h2>" +
         "<a href = \"game_board.html\"><button class=\"play-button\"><b>Play Again</b></button></a> ";
 
+    // Get player name 
+    var playerName = prompt("Enter your name:");
+    var totalScore = bonus + lowerScore + upperScore;
+    // Add score to leaderboard
+    await addToFinalScore(playerName, totalScore);
+
     //Clear session
     await callWithoutParam("resetGame");
 }
