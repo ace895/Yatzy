@@ -1,7 +1,7 @@
 <?php
-    require_once('..\..\public\_config.php');
-    namespace Yatzy\App\Models;
-
+namespace Yatzy\App\Models;
+require_once('..\..\public\_config.php');
+    
 class YatzyDatabase {
 
     private $connection;

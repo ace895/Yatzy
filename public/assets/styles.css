@@ -10,7 +10,7 @@ body {
     background-attachment: fixed;
 }
 
-.game-background {
+.game-background, .player_info {
     background: linear-gradient(to bottom, #58c4d1 50%, #2e949f);
 }
 
