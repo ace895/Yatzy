@@ -43,6 +43,29 @@ async function addToFinalScore(playerName, totalScore){
     });
 }
 
+//Try to login user
+async function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    const response = await $.ajax({
+        type: "GET",
+        url: "../api.php",
+        data: {
+            action: f,
+            username: username,
+            password: password
+        }
+    });
+    
+    if (response.value) {
+        window.href = "https://localhost:4000/start_page.html";
+    }
+    else {
+        //Display error
+        document.getElementById("loginError").innerHTML = "<b>Username or password incorrect</b>";
+    }
+}
+
 //Debugging purposes
 async function getSession() { 
     const response = await $.ajax({

@@ -161,7 +161,7 @@ button {
     top: 30px;
 }
 
-#roll-button:hover, #how-to-play:hover {
+#roll-button:hover, #how-to-play:hover, #login-button:hover {
     background-color: #e3d040;
 }
 
@@ -182,6 +182,11 @@ hr {
     height: 5px;
     background-color: black;
     margin-bottom: 40px;
+}
+
+input {
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 /*LeaderBoard*/ 

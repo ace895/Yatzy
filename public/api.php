@@ -5,10 +5,12 @@
     use Yatzy\App\Models\YatzyGame;
     use Yatzy\App\Models\YatzyEngine;
     use Yatzy\App\Models\Leaderboard;
+    use Yatzy\App\Models\YatzyDatabase;
 
     $game = new YatzyGame();
     $engine = new YatzyEngine();
     $leaderboard = new Leaderboard();
+    $db = new YatzyDatabase();
 
     switch ($_GET["action"] ?? "version") {
     case "roll":
@@ -58,6 +60,13 @@
         break;
     case "resetGame":
         $data = ["value" => $game->reset_game()];
+        break;
+    
+    //Database related calls
+    case "login":
+        $username= $_GET["username"];
+        $password = $_GET["password"];
+        $data = ["value" => $db->login_user($username, $password)];
         break;
     default:
         $data = null;

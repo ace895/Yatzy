@@ -1,13 +1,18 @@
 <?php
     require_once('..\..\public\_config.php');
+    namespace Yatzy\App\Models;
 
-    function getConnection() {
+class YatzyDatabase {
+
+    private $connection;
+
+    function __construct() {
         $config = $GLOBALS['dbConfig']; 
-        return pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
+        $connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
     }
 
     //Initializes tables and loads the database with dummy info
-    function loadDB($connection) {
+    function load_DB() {
         if (session_status() == PHP_SESSION_NONE) {
             $query = "CREATE TABLE Users(
                         Username VARCHAR(30) NOT NULL,
@@ -16,7 +21,7 @@
                         Last_Login DATE,
                         PRIMARY KEY(Username)
                     );";
-            pg_query($connection, $query);
+            pg_query($this->connection, $query);
 
             $query = "CREATE TABLE Scores(
                 Username VARCHAR(30),
@@ -25,7 +30,7 @@
                 PRIMARY KEY(Username, Score),
                 FOREIGN KEY(Username) REFERENCES Users
             );";
-            pg_query($connection, $query);
+            pg_query($this->connection, $query);
 
             $query = "CREATE VIEW Highscores AS
                     SELECT * FROM Scores s1
@@ -33,50 +38,52 @@
                         SELECT Score FROM Scores s2
                         WHERE s1.Username = s2.Username
                     );";
-            pg_query($connection, $query);
+            pg_query($this->connection, $query);
 
             $query = "CREATE VIEW Leaderboard AS
                 (SELECT Username, Score, rank() over (order by Score desc) leaderboard_rank
                 FROM Highscores);";
-            pg_query($connection, $query);
+            pg_query($this->connection, $query);
         }
     }
 
     //Adds user to database
-    function registerUser($connection, $username, $password) {
+    function register_user($username, $password) {
         $query = "INSERT INTO Users(Username, Password, Registration_Date, Last_Login)
                 VALUES ($username, $password, CURRENT_DATE, CURRENT_DATE);";
-        pg_query($connection, $query);
+        pg_query($this->connection, $query);
     }
 
     //Checks whether the user exists and logs them in
-    function logInUser($connection, $username, $password) {
+    function login_user($username, $password) {
         $query = "SELECT Username, Password FROM Users WHERE
             Username = '$username' AND Password = '$password';";
-        $result = pg_query($connection, $query);
+        $result = pg_query($this->connection, $query);
         if (pg_num_rows($result) == 0) { //Incorrect username or password
             return false;
         } else {
             $query = "UPDATE Users SET Last_Login = CURRENT_DATE WHERE Username = '$username';";
-            pg_query($connection, $query);
+            pg_query($this->connection, $query);
             return true;
         }
     }
     
     //Gets all a user's scores
-    function getScores($connection, $username) {
+    function get_scores($username) {
         $query = "SELECT Score FROM Scores WHERE
             Username = $username
             ORDER BY Score;";
-        $result = pg_query($connection, $query);
+        $result = pg_query($this->connection, $query);
         return pg_fetch_all($result);
     }
 
     //Gets the leaderboard of all players
-    function getLeaderboard($connection) {
+    function get_leaderboard() {
         $query = "SELECT * FROM Leaderboard;";
-        $result = pg_query($connection, $query);
+        $result = pg_query($this->connection, $query);
         return pg_fetch_all($result);
     }
+
+}
 
 ?>
