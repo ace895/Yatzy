@@ -155,14 +155,25 @@ button {
     border-width: 3px;
 }
 
-#how-to-play {
+#how-to-play, #home_button {
     font-size: large;
     position: relative;
     top: 30px;
 }
 
-#roll-button:hover, #how-to-play:hover, #login-button:hover {
+#roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover{
     background-color: #e3d040;
+}
+
+#info img{
+    height: 60px;
+    width: 60px;
+    position:relative; 
+}
+#info{
+    position: relative; 
+    top:30px;
+    right: -450px;
 }
 
 /*Built in*/
