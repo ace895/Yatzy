@@ -12,6 +12,9 @@ body {
 
 .game-background {
     background: linear-gradient(to bottom, #58c4d1 50%, #2e949f);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
 }
 
 /*Dice*/
@@ -86,13 +89,13 @@ body {
     text-align: center;
 }
 
-#score-table {
+#score-table, .info-table {
     padding: 5px;
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-.score-td, .score {
+.score-td, .score, .info-td, .info-td-head {
     padding: 5px;
     width: 200px;
     border-style: solid;
@@ -110,7 +113,7 @@ body {
     padding: 0px;
 }
 
-#upper-title, #lower-title {
+#upper-title, #lower-title, .info-td-head {
     background-color: #F0DE55;
     font-size: large;
 }
@@ -232,4 +235,5 @@ iframe {
     border: 5px black solid;
     background-color: #F0DE55;
 }
+
 

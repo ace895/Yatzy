@@ -84,6 +84,13 @@ class YatzyDatabase {
         return pg_fetch_all($result);
     }
 
+    //Gets all users
+    function get_users() {
+        $query = "SELECT * FROM Users;";
+        $result = pg_query($this->connection, $query);
+        return pg_fetch_all($result);
+    }
+
 }
 
 ?>

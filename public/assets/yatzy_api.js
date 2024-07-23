@@ -58,11 +58,19 @@ async function login() {
     });
     
     if (response.value) {
-        window.href = "https://localhost:4000/start_page.html";
+        window.location.href = "https://localhost:4000/start_page.html";
     }
     else {
         //Display error
         document.getElementById("loginError").innerHTML = "<b>Username or password incorrect</b>";
+    }
+}
+
+//Login admin
+function loginAdmin() {
+    var password = window.prompt("Please enter the password");
+    if (password == "theadminpassword") {
+        window.location.href = "https://localhost:4000/admin.html";
     }
 }
 

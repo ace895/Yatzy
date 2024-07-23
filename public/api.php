@@ -68,6 +68,16 @@
         $password = $_GET["password"];
         $data = ["value" => $db->login_user($username, $password)];
         break;
+    case "getUsers":
+        $data = ["value" => $db->get_users()];
+        break;
+    case "getLeaderboard":
+        $data = ["value" => $db->get_leaderboard()];
+        break;
+    case "getScores":
+        $username = $_GET["param"];
+        $data = ["value" => $db->get_scores($username)];
+        break;
     default:
         $data = null;
     }
