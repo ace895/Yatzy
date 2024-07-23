@@ -51,7 +51,8 @@ class YatzyDatabase {
     function register_user($username, $password) {
         $query = "INSERT INTO Users(Username, Password, Registration_Date, Last_Login)
                 VALUES ($username, $password, CURRENT_DATE, CURRENT_DATE);";
-        pg_query($this->connection, $query);
+        $result = pg_query($this->connection, $query);
+        return $result; //Returns false if username isn't unique
     }
 
     //Checks whether the user exists and logs them in

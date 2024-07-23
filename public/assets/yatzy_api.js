@@ -74,6 +74,37 @@ function loginAdmin() {
     }
 }
 
+//Sign up user
+async function signup() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirm-password").value;
+    
+    //Check if passwords match
+    if (password != confirmPassword) {
+        window.alert("Passwords do not match.")
+    } 
+    else {
+        //Create account
+        const response = await $.ajax({
+            type: "GET",
+            url: "../api.php",
+            data: {
+                action: "signup",
+                username: username,
+                password: password
+            }
+        });
+        //Check if username is unique
+        if (response) {
+            window.location.href = "https://localhost:4000/login.html";
+        }
+        else {
+            window.alert("Username is already taken.");
+        }
+    }
+}
+
 //Debugging purposes
 async function getSession() { 
     const response = await $.ajax({

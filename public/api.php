@@ -68,6 +68,11 @@
         $password = $_GET["password"];
         $data = ["value" => $db->login_user($username, $password)];
         break;
+    case "signup":
+        $username= $_GET["username"];
+        $password = $_GET["password"];
+        $data = ["value" => $db->register_user($username, $password)];
+        break;
     case "getUsers":
         $data = ["value" => $db->get_users()];
         break;
