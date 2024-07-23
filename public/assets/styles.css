@@ -10,7 +10,7 @@ body {
     background-attachment: fixed;
 }
 
-.game-background {
+.game-background, .player_info {
     background: linear-gradient(to bottom, #58c4d1 50%, #2e949f);
     background-size: cover; 
     background-repeat: no-repeat; 
@@ -158,14 +158,25 @@ button {
     border-width: 3px;
 }
 
-#how-to-play {
+#how-to-play, #home_button {
     font-size: large;
     position: relative;
     top: 30px;
 }
 
-#roll-button:hover, #how-to-play:hover, #login-button:hover {
+#roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover{
     background-color: #e3d040;
+}
+
+#info img{
+    height: 60px;
+    width: 60px;
+    position:relative; 
+}
+#info{
+    position: relative; 
+    top:30px;
+    right: -450px;
 }
 
 /*Built in*/
