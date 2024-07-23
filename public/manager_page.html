@@ -5,10 +5,35 @@
     <meta charset="UTF-8">
     <title>Yatzy</title>
     <meta name="viewport" content="width=device-width">
+    <script src="assets/yatzy_admin.js"></script>
+    <script src="assets/yatzy_api.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body class = "manager_page"> 
-    
+
+<body class="game-background">
+    <div class="header">
+        <h1 id="title">YATZY ADMIN</h1>
+    </div>
+    <hr>
+
+    <div class="users-container">
+        <h2>Users</h2>
+        <table id="user-table" class="info-table">
+            <thead>
+                <tr>
+                    <td class="info-td-head">Username</td>
+                    <td class="info-td-head">Registration Date</td>
+                    <td class="info-td-head">Last Login</td>
+                    <td class="info-td-head">High Score</td>
+                    <td class="info-td-head">Leaderboard Rank</td>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Will be loaded with users -->
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>
