@@ -50,7 +50,7 @@ class YatzyDatabase {
     //Adds user to database
     function register_user($username, $password) {
         $query = "INSERT INTO Users(Username, Password, Registration_Date, Last_Login)
-                VALUES ($username, $password, CURRENT_DATE, CURRENT_DATE);";
+                VALUES ('$username', '$password', CURRENT_DATE, CURRENT_DATE);";
         $result = pg_query($this->connection, $query);
         return $result; //Returns false if username isn't unique
     }
@@ -71,8 +71,8 @@ class YatzyDatabase {
     
     //Gets all a user's scores
     function get_scores($username) {
-        $query = "SELECT Score FROM Scores WHERE
-            Username = $username
+        $query = "SELECT Score FROM Scores WHERE 
+            Username = '$username' 
             ORDER BY Score;";
         $result = pg_query($this->connection, $query);
         return pg_fetch_all($result);
