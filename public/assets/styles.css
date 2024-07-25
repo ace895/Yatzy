@@ -164,7 +164,7 @@ button {
     top: 30px;
 }
 
-#roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover{
+#roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover, .small:hover{
     background-color: #e3d040;
 }
 
@@ -177,6 +177,13 @@ button {
     position: relative; 
     top:30px;
     right: -550px;
+}
+
+.small {
+    height: 50px;
+    width:fit-content;
+    font-size: small;
+    margin-bottom: 10px;
 }
 
 /*Built in*/

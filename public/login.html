@@ -24,11 +24,12 @@
                     <br>
                     <input type="password" id="password" placeholder="Password">
                     <br>
-                    <button id="login-button" onclick="login()">Log In</button>
+                    <button type="button" id="login-button" onclick="login()">Log In</button>
                 </form>
-                <p><a href="create_account.html">Create an account</a></p>
-                <p style="float:inline-end;"><a href="#" onclick="loginAdmin()">I'm an admin</a></p>
-                
+                <br>
+                <button class="small" onclick="window.location.href='http://localhost:4000/create_account.html'">Create an account</button>
+                <br>
+                <button class="small" onclick="loginAdmin()">I'm an admin</button>                
             </center>
         </div>
     </div>

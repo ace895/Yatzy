@@ -8,7 +8,7 @@ require_once $GLOBALS["vendorDir"] . "/autoload.php";
 
 $GLOBALS["dbConfig"] = [
     "host" => "localhost",
-    "dbname" => "Yatzy",
+    "dbname" => "yatzy",
     "user" => "postgres", 
     "password" => PASSWORD
 ];

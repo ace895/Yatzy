@@ -51,14 +51,13 @@ async function login() {
         type: "GET",
         url: "../api.php",
         data: {
-            action: f,
+            action: "login",
             username: username,
             password: password
         }
     });
-    
     if (response.value) {
-        window.location.href = "https://localhost:4000/start_page.html";
+        window.location.href = "http://localhost:4000/start_page.html";
     }
     else {
         //Display error
@@ -70,19 +69,20 @@ async function login() {
 function loginAdmin() {
     var password = window.prompt("Please enter the password");
     if (password == "theadminpassword") {
-        window.location.href = "https://localhost:4000/admin.html";
+        window.location.href = "http://localhost:4000/manager_page.html";
     }
 }
 
 //Sign up user
 async function signup() {
+
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirm-password").value;
     
     //Check if passwords match
     if (password != confirmPassword) {
-        window.alert("Passwords do not match.")
+        document.getElementById("signupError").innerHTML = "<b>Passwords do not match</b>";
     } 
     else {
         //Create account
@@ -96,11 +96,11 @@ async function signup() {
             }
         });
         //Check if username is unique
-        if (response) {
-            window.location.href = "https://localhost:4000/login.html";
+        if (response.value) {
+            window.location.href = "http://localhost:4000/login.html";
         }
         else {
-            window.alert("Username is already taken.");
+            document.getElementById("signupError").innerHTML = "<b>Username already taken</b>";
         }
     }
 }
