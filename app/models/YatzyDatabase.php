@@ -80,7 +80,7 @@ class YatzyDatabase {
 
     //Gets the leaderboard of all players
     function get_leaderboard() {
-        $query = "SELECT * FROM Leaderboard;";
+        $query = "SELECT * FROM Leaderboard LIMIT 10;";
         $result = pg_query($this->connection, $query);
         return pg_fetch_all($result);
     }

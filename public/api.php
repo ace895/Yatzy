@@ -53,7 +53,7 @@
         $data = ["value" => $_SESSION];
         break;
     case "leaderboard":
-        $data = ['leaderboard' => $leaderboard->getTopScores()];
+        $data = ['leaderboard' => $db->get_leaderboard()];
         break;
     case "getSession" :
         $data = ["value" => $_SESSION];
