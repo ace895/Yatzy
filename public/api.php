@@ -83,6 +83,14 @@
         $username = $_GET["param"];
         $data = ["value" => $db->get_scores($username)];
         break;
+    case "getUserInfo":
+        $username = $_SESSION['username'];
+        $data = ["value" => $db->get_user_info($username)];
+        break;
+    case "getTopScores":
+        $username = $_SESSION['username']; 
+        $data = ["value" => $db->get_top_scores($username)];
+        break;
     default:
         $data = null;
     }
