@@ -14,9 +14,33 @@
             <button id="home_button"><b>HOME</b></button>
         </a>
     </div>
-    <div> 
-        <!-- Showing their top 10 scores-->
+    <hr>
+    <div id="user_info">
+        <h2>User Information</h2>
+        <p><b>Username:</b> <span id="username"></span></p>
+        <p><b>Registration Date:</b> <span id="registration_date"></span></p>
+        <p><b>Last Login:</b> <span id="last_login"></span></p>
     </div>
+    <div id="top_scores">
+        <h2>Top 10 Scores</h2>
+        <ul id="scores_list"></ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7O6hLZP0vF6F29ay3PzCpe5IrX0jAsdFIpP" crossorigin="anonymous"></script>
+    <script src="./assets/yatzy_api.js"></script>
+    <script>
+        $(document).ready(async function() {
+            const userInfo = await callWithoutParam('getUserInfo');
+            $('#username').text(userInfo.Username);
+            $('#registration_date').text(userInfo.Registration_Date);
+            $('#last_login').text(userInfo.Last_Login);
+
+            const topScores = await callWithoutParam('getTopScores');
+            const scoresList = $('#scores_list');
+            topScores.forEach(score => {
+                scoresList.append('<li>' + score + '</li>');
+            });
+        });
+    </script>
 </body>
 
 </html>

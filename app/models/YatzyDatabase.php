@@ -80,7 +80,7 @@ class YatzyDatabase {
 
     //Gets the leaderboard of all players
     function get_leaderboard() {
-        $query = "SELECT * FROM Leaderboard;";
+        $query = "SELECT * FROM Leaderboard LIMIT 10;";
         $result = pg_query($this->connection, $query);
         return pg_fetch_all($result);
     }
@@ -90,6 +90,20 @@ class YatzyDatabase {
         $query = "SELECT * FROM Users;";
         $result = pg_query($this->connection, $query);
         return pg_fetch_all($result);
+    }
+
+    // Fetches user information
+    function get_user_info($username) {
+        $query = "SELECT Username, Registration_Date, Last_Login FROM Users WHERE Username = '$username';";
+        $result = pg_query($this->connection, $query);
+        return pg_fetch_assoc($result);
+    }
+
+    // Fetches top 10 scores of the user
+    function get_top_scores($username) {
+        $query = "SELECT Score FROM Scores WHERE Username = '$username' ORDER BY Score DESC LIMIT 10;";
+        $result = pg_query($this->connection, $query);
+        return pg_fetch_all_columns($result);
     }
 
 }
