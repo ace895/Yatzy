@@ -27,7 +27,7 @@ class YatzyDatabase {
             $query = "CREATE TABLE IF NOT EXISTS Scores(
                 Username VARCHAR(30),
                 Score INTEGER,
-                Registration_Date Date,
+                Date_Scored Date,
                 PRIMARY KEY(Username, Score),
                 FOREIGN KEY(Username) REFERENCES Users
             );";

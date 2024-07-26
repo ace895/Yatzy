@@ -118,6 +118,13 @@ body {
     font-size: large;
 }
 
+.blank-td {
+    border-style: hidden;
+    border-left-style: solid;
+    background-color: transparent;
+    padding-left: 20px;
+}
+
 /*Containers*/
 .row {
     display: flex;
@@ -186,6 +193,15 @@ button {
     margin-bottom: 10px;
 }
 
+.delete-btn {
+    background-color: rgb(188, 26, 26);
+    width: 80px;
+}
+.delete-btn:hover {
+    background-color: rgb(163, 35, 35);
+
+}
+
 /*Built in*/
 h1 {
     font-size: 80px;
@@ -235,12 +251,15 @@ input {
 /*Start Page */
 .start_container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
     padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
 }
 .start_header{
     flex: 1;
+    text-align: center;
 }
 .leaderboard-content {
     background-color: transparent;

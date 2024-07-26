@@ -11,26 +11,22 @@
 </head>
 
 <body class="start-background">
-    <div class = "start_container">
+    <div class="start_container">
         <div class="start_header">
-            <center>
-                <h1>
-                    YATZY
-                </h1>
-
-                <p id="loginError"><b>Please enter your username or password</b></p>
-                <form>  
-                    <input type="text" id="username" placeholder="Username">
-                    <br>
-                    <input type="password" id="password" placeholder="Password">
-                    <br>
-                    <button type="button" id="login-button" onclick="login()">Log In</button>
-                </form>
+            <h1>YATZY</h1>
+            <p id="loginError"><b>Please enter your username or password</b></p>
+            <form>  
+                <input type="text" id="username" placeholder="Username">
                 <br>
-                <button class="small" onclick="window.location.href='http://localhost:4000/create_account.html'">Create an account</button>
+                <input type="password" id="password" placeholder="Password">
                 <br>
-                <button class="small" onclick="loginAdmin()">I'm an admin</button>                
-            </center>
+                <button type="button" id="login-button" onclick="login()">Log In</button>
+            </form>
+            <br>
+            <button class="small" onclick="window.location.href='http://localhost:4000/create_account.html'">Create an account</button>
+        </div>
+        <div style="margin-top: auto;">
+            <button class="small" onclick="loginAdmin()">I'm an admin</button>
         </div>
     </div>
 </body>
