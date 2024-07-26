@@ -83,6 +83,10 @@
         $username = $_GET["param"];
         $data = ["value" => $db->get_scores($username)];
         break;
+    case "deleteUser":
+        $username = $_GET["param"];
+        $data = ["value" => $db->delete_user($username)];
+        break;
     case "getUserInfo":
         $username = $_SESSION['username'];
         $data = ["value" => $db->get_user_info($username)];

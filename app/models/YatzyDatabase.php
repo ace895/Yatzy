@@ -29,7 +29,8 @@ class YatzyDatabase {
                 Score INTEGER,
                 Date_Scored Date,
                 PRIMARY KEY(Username, Score),
-                FOREIGN KEY(Username) REFERENCES Users
+                FOREIGN KEY(Username) REFERENCES Users 
+                ON DELETE CASCADE
             );";
             pg_query($this->connection, $query);
 
@@ -105,6 +106,14 @@ class YatzyDatabase {
         $query = "SELECT Score FROM Scores WHERE Username = '$username' ORDER BY Score DESC LIMIT 10;";
         $result = pg_query($this->connection, $query);
         return pg_fetch_all_columns($result);
+    }
+
+    //Deletes a given user from the database
+    function delete_user($username) {
+        $username = trim($username, "\"'"); //Remove extra quotations
+        $query = "DELETE FROM Users WHERE Username = '$username';";
+        $result = pg_query($this->connection, $query);
+        return $result;
     }
 
 }

@@ -11,7 +11,7 @@ window.onload = async function() {
         var leaderboard = await callWithoutParam("getLeaderboard");
         var rankEntry = leaderboard.find(entry => entry.username === user.username);
         var rank = rankEntry ? rankEntry.leaderboard_rank : "N/A";
-        var deleteButton = "<button class='small delete-btn' onclick='deleteUser('" + user.username + "')'><b>Delete<b></button>"
+        var deleteButton = "<button class='small delete-btn' onclick='deleteUser(\"" + user.username + "\")'><b>Delete<b></button>"
         var infoButton = "<button class='small' onclick='getUserScores(\"" + user.username + "\")'><b>View Scores<b></button>"
 
         table.innerHTML += "<tr><td class='info-td'>" + user.username +
@@ -27,7 +27,8 @@ window.onload = async function() {
 
 //Remove user from database
 function deleteUser(username) {
-
+    callWithParam("deleteUser", username);
+    location.reload();
 }
 
 //Display user scores
