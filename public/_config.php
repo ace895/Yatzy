@@ -10,7 +10,7 @@ $GLOBALS["dbConfig"] = [
     "host" => "localhost",
     "dbname" => "yatzy",
     "user" => "postgres", 
-    "password" => 'meatball'
+    "password" => PASSWORD
 ];
 
 function resolve_path($name)
