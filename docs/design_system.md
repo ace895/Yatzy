@@ -14,6 +14,10 @@ The overall design we decide on was the keep it simple and minimalistic with onl
 
 ## Components 
 
+[Login Page](assets/design_system/login_page.png)
+
+[Create Account Page](assets/design_system/create_account.png)
+
 [Start Page](assets/design_system/start_page.png)
 
 [Dice](assets/design_system/dice.png)
