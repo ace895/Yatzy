@@ -1,6 +1,6 @@
 # Single Player Yatzy
 
-This is a rendition of a single player yatzy game, where it was created with HTML, CSS, Javascript, PHP and AJAX. 
+This is a rendition of a single player yatzy game, where it was created with HTML, CSS, Javascript, PHP, AJAX and Postgresql. 
 
 Check out the [Design System](/docs/design_system.md) that has been implement into the game, if your curious about the font or colour that was used. 
 
