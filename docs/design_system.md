@@ -18,6 +18,8 @@ The overall design we decide on was the keep it simple and minimalistic with onl
 
 [Create Account Page](assets/design_system/create_account.png)
 
+[Admin Page](assets/design_system/admin_page.png)
+
 [Start Page](assets/design_system/start_page.png)
 
 [Dice](assets/design_system/dice.png)
