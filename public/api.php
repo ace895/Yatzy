@@ -9,7 +9,6 @@
 
     $game = new YatzyGame();
     $engine = new YatzyEngine();
-    $leaderboard = new Leaderboard();
     $db = new YatzyDatabase();
 
     switch ($_GET["action"] ?? "version") {
@@ -47,10 +46,9 @@
         $data =  ["value" => $engine->calc_score($category)];
         break;
     case "submit_final_score":
-        $playerName= $_GET["playerName"];
+        $username= $_GET["playerName"];
         $totalScore = $_GET["totalScore"];
-        $leaderboard->addPlayer($playerName, $totalScore);
-        $data = ["value" => $_SESSION];
+        $data = ["value" => $db->add_score($username, $totalScore)];
         break;
     case "leaderboard":
         $data = ['leaderboard' => $db->get_leaderboard()];
@@ -78,9 +76,6 @@
     case "getUsers":
         $data = ["value" => $db->get_users()];
         break;
-    case "getLeaderboard":
-        $data = ["value" => $db->get_leaderboard()];
-        break;
     case "getScores":
         $username = $_GET["param"];
         $data = ["value" => $db->get_scores($username)];
@@ -90,12 +85,16 @@
         $data = ["value" => $db->delete_user($username)];
         break;
     case "getUserInfo":
-        $username = $_SESSION['username'];
+        $username = $_SESSION['username'] ?? null;
         $data = ["value" => $db->get_user_info($username)];
         break;
     case "getTopScores":
-        $username = $_SESSION['username']; 
-        $data = ["value" => $db->get_top_scores($username)];
+        $username = $_SESSION['username'] ?? null;
+        if ($username) {
+            $data = ["value" => $db->get_top_scores($username)];
+        } else {
+            $data = ["error" => "User not logged in"];
+        }
         break;
     default:
         $data = null;

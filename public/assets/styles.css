@@ -230,21 +230,21 @@ input {
 }
 
 /*LeaderBoard*/ 
-.leaderboard-body {
+.leaderboard-body{
     margin: 0;
 }
 
-.leaderboard-container {
+.leaderboard-container{
     width: 100%;
     background-color: transparent;
 }
 
-.leaderboard-container table {
+.leaderboard-container table , .top_scores table{
     width: 100%;
     border-collapse: collapse;
 }
 
-.leaderboard-container th, .leaderboard-container td {
+.leaderboard-container th, .leaderboard-container td, .top_scores th, .top_scores td  {
     border: 1px solid black;
     padding: 8px;
     text-align: center;
@@ -276,4 +276,10 @@ iframe {
     background-color: #F0DE55;
 }
 
+/* Player Info */ 
+#user_info, #top_scores, .top_scores h2{
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
 

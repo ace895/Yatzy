@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Yatzy</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body class ="player_info"> 
-    <div class ="header"> 
+<body class="player_info"> 
+    <div class="header"> 
         <h1 id="title">YATZY</h1>
-        <a href ="game_board.html">
+        <a href="game_board.html">
             <button id="home_button"><b>HOME</b></button>
         </a>
     </div>
@@ -21,26 +20,36 @@
         <p><b>Registration Date:</b> <span id="registration_date"></span></p>
         <p><b>Last Login:</b> <span id="last_login"></span></p>
     </div>
-    <div id="top_scores">
+    <div class = "top_scores">
         <h2>Top 10 Scores</h2>
-        <ul id="scores_list"></ul>
+        <table id = "scores_table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="scores_list"></tbody>
+        </table>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7O6hLZP0vF6F29ay3PzCpe5IrX0jAsdFIpP" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="./assets/yatzy_api.js"></script>
     <script>
         $(document).ready(async function() {
             const userInfo = await callWithoutParam('getUserInfo');
-            $('#username').text(userInfo.Username);
-            $('#registration_date').text(userInfo.Registration_Date);
-            $('#last_login').text(userInfo.Last_Login);
-
+            document.getElementById('username').innerHTML = userInfo.username;
+            document.getElementById('registration_date').innerHTML = userInfo.registration_date;
+            document.getElementById('last_login').innerHTML = userInfo.last_login;
             const topScores = await callWithoutParam('getTopScores');
             const scoresList = $('#scores_list');
-            topScores.forEach(score => {
-                scoresList.append('<li>' + score + '</li>');
-            });
+            if (topScores && topScores.length > 0) {
+                topScores.forEach((score, index) => {
+                    scoresList.append('<tr><td>' + (index + 1) + '</td><td>' + score + '</td></tr>');
+                });
+            } else {
+                scoresList.append('<tr><td colspan="2">No scores available</td></tr>');
+            }
         });
     </script>
 </body>
-
 </html>

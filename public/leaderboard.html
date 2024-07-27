@@ -29,20 +29,19 @@
             const response = await fetch('api.php?action=leaderboard');
             const data = await response.json();
             const leaderboard = data.leaderboard;
-            const tbody = document.querySelector('#leaderboard-table tbody');
-            tbody.innerHTML = ''; // Clear existing rows
+            const tbody = document.querySelector('#leaderboard-table-body');
+            tbody.innerHTML = ''; 
 
-            if (leaderboard.length === 0) {
+            if (!leaderboard || leaderboard.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="3">No scores available</td></tr>';
             } else {
                 leaderboard.forEach((entry, index) => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td>${index + 1}</td><td>${entry.player}</td><td>${entry.score}</td>`;
+                    row.innerHTML = `<td>${index + 1}</td><td>${entry.username}</td><td>${entry.score}</td>`;
                     tbody.appendChild(row);
                 });
             }
         }
-
         window.onload = loadLeaderboard;
     </script>
 </body>
