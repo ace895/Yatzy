@@ -14,13 +14,14 @@ window.onload = async function() {
         var deleteButton = "<button class='small delete-btn' onclick='deleteUser(\"" + user.username + "\")'><b>Delete<b></button>"
         var infoButton = "<button class='small' onclick='getUserScores(\"" + user.username + "\")'><b>View Scores<b></button>"
 
-        table.innerHTML += "<tr><td class='info-td'>" + user.username +
+        table.innerHTML += "<tr><td class='info-td'>" + user.first_name + " " + user.last_name +
+                            "</td><td class='info-td'>" + user.username +
                             "</td><td class='info-td'>" + user.registration_date + 
                             "</td><td class='info-td'>" + user.last_login +
                             "</td><td class='info-td'>" + highScore +
                             "</td><td class='info-td'>" + rank + 
                             "</td><td class='blank-td'>" + infoButton + 
-                            "</td><td class='blank-td'>" + deleteButton + "</td>";
+                            "</td><td class='blank-td'>" + deleteButton + "</td></tr>";
     }
 
 }

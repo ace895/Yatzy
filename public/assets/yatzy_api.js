@@ -76,12 +76,17 @@ function loginAdmin() {
 //Sign up user
 async function signup() {
 
+    var fName = document.getElementById("first-name").value;
+    var lName = document.getElementById("last-name").value;
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirm-password").value;
     
     //Check if passwords match
-    if (password != confirmPassword) {
+    if (fName == "" || lName == "" || username == " " || password == " ") {
+        document.getElementById("signupError").innerHTML = "<b>Please fill in all fields</b>";
+    }
+    else if (password != confirmPassword) {
         document.getElementById("signupError").innerHTML = "<b>Passwords do not match</b>";
     } 
     else {
@@ -91,6 +96,8 @@ async function signup() {
             url: "../api.php",
             data: {
                 action: "signup",
+                firstName: fName,
+                lastName: lName,
                 username: username,
                 password: password
             }
@@ -102,6 +109,7 @@ async function signup() {
         else {
             document.getElementById("signupError").innerHTML = "<b>Username already taken</b>";
         }
+        console.log(response);
     }
 }
 

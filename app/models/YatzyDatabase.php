@@ -16,6 +16,8 @@ class YatzyDatabase {
         
         if (session_status() == PHP_SESSION_NONE) {
             $query = "CREATE TABLE IF NOT EXISTS Users(
+                        First_Name VARCHAR(30) NOT NULL,
+                        Last_Name VARCHAR(30) NOT NULL,
                         Username VARCHAR(30) NOT NULL,
                         Password VARCHAR(30),
                         Registration_Date Date,
@@ -50,9 +52,9 @@ class YatzyDatabase {
     }
 
     //Adds user to database
-    function register_user($username, $password) {
-        $query = "INSERT INTO Users(Username, Password, Registration_Date, Last_Login)
-                VALUES ('$username', '$password', CURRENT_DATE, CURRENT_DATE);";
+    function register_user($fName, $lName, $username, $password) {
+        $query = "INSERT INTO Users(First_Name, Last_Name, Username, Password, Registration_Date, Last_Login)
+                VALUES ('$fName', '$lName', '$username', '$password', CURRENT_DATE, CURRENT_DATE);";
         $result = pg_query($this->connection, $query);
         return $result;
     }
