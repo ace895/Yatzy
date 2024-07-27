@@ -135,6 +135,14 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.header .button-container {
+    display: flex;
+    gap: 20px; 
+    top: 30px;
 }
 
 #dice-board {
@@ -165,10 +173,9 @@ button {
     border-width: 3px;
 }
 
-#how-to-play, #home_button {
+#how-to-play, #home_button, #info {
     font-size: large;
     position: relative;
-    top: 30px;
 }
 
 #roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover, .small:hover{
@@ -180,11 +187,7 @@ button {
     width: 60px;
     position:relative; 
 }
-#info{
-    position: relative; 
-    top:30px;
-    right: -550px;
-}
+
 
 .small {
     height: 50px;
