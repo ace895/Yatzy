@@ -51,7 +51,7 @@
         $data = ["value" => $db->add_score($username, $totalScore)];
         break;
     case "leaderboard":
-        $data = ['leaderboard' => $db->get_leaderboard()];
+        $data = ["value" => $db->get_leaderboard()];
         break;
     case "getSession" :
         $data = ["value" => $_SESSION];

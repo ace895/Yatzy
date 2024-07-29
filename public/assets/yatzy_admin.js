@@ -11,8 +11,9 @@ window.onload = async function() {
         var score = await callWithParam("getScores", user.username);
         var highScore = score.length > 0 ? score[0].score : "No scores";
         var leaderboard = await callWithoutParam("leaderboard");
-        var rankEntry = leaderboard == null ? null : leaderboard.find(entry => entry.username === user.username);
+        var rankEntry = leaderboard == null ? null : leaderboard.find(entry => entry.username == user.username);
         var rank = rankEntry != null && rankEntry ? rankEntry.leaderboard_rank : "N/A";
+
         user["rank"] = rank;
         user["highScore"] = highScore;
 
@@ -38,14 +39,15 @@ function deleteUser(username) {
 }
 
 //Display user scores
-function getUserScores(username) {
+async function getUserScores(username) {
     //Get user scores
-    var scores = callWithParam("getScores", username);
+    var scores = await callWithParam("getScores", username);
 
     //Update UI components
     var table = document.getElementById("user-scores-table");
     var header = document.getElementById("score-header");
     header.innerHTML = username + "'s Scores";
+    table.innerHTML = "<thead><tr><td class=\"info-td-head\">Score</td><td class=\"info-td-head\">Date</td></tr> </thead>"
 
     //Load table with scores
     for(var s of scores) {

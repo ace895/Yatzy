@@ -28,7 +28,7 @@
         async function loadLeaderboard() {
             const response = await fetch('api.php?action=leaderboard');
             const data = await response.json();
-            const leaderboard = data.leaderboard;
+            const leaderboard = data.value;
             const tbody = document.querySelector('#leaderboard-table-body');
             tbody.innerHTML = ''; 
 

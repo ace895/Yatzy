@@ -6,9 +6,31 @@ class YatzyDatabase {
     private $connection;
 
     function __construct() {
-        $config = $GLOBALS['dbConfig']; 
-        $this->connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
+        $this->create_DB();
         $this->load_DB();
+    }
+
+    //Creates database
+    function create_DB() {
+        $config = $GLOBALS['dbConfig']; 
+        if (session_status() == PHP_SESSION_NONE) {
+            $connection = pg_connect("host='localhost' port='5000' user={$config['user']} password={$config['password']}");
+
+            //Check if the database exists
+            $query = "SELECT 1 FROM pg_database WHERE datname = 'dbname={$config['dbname']}'";
+            $result = pg_query($connection, $query);
+
+            if (pg_num_rows($result) == 0) {
+                //Create database
+                $query = "CREATE DATABASE $dbname";
+                $result = pg_query($connection, $query);
+            }
+
+            pg_close($connection);
+
+        }
+        //Connect to database
+        $this->connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
     }
 
     //Initializes tables and loads the database
@@ -64,7 +86,8 @@ class YatzyDatabase {
     
     //Gets all a user's scores
     function get_scores($username) {
-        $query = "SELECT Score FROM Scores WHERE 
+        $username = trim($username, "\"'"); //Remove extra quotations
+        $query = "SELECT Score, Date_Scored FROM Scores WHERE 
             Username = '$username' 
             ORDER BY Score;";
         $result = pg_query($this->connection, $query);
@@ -73,11 +96,10 @@ class YatzyDatabase {
 
     //Gets the leaderboard of all players
     function get_leaderboard() {
-        $query = "SELECT Username, MAX(Score) AS Score
-                    FROM Scores
-                    GROUP BY Username
-                    ORDER BY Score DESC
-                    LIMIT 10;";
+        $query = "SELECT Username, MAX(Score) AS Score, rank() over (order by MAX(Score) desc) leaderboard_rank
+            FROM Scores
+            GROUP BY Username
+            LIMIT 10;";
         $result = pg_query($this->connection, $query);
         if (!$result) {
             error_log("Failed to get leaderboard: " . pg_last_error($this->connection));

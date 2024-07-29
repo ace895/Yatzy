@@ -109,7 +109,6 @@ async function signup() {
         else {
             document.getElementById("signupError").innerHTML = "<b>Username already taken</b>";
         }
-        console.log(response);
     }
 }
 
