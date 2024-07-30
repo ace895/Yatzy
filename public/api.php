@@ -61,6 +61,9 @@
         break;
     
     //Database related calls
+    case "checkConnection":
+        $data = "";
+        break;
     case "login":
         $username= $_GET["username"];
         $password = $_GET["password"];

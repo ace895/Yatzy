@@ -6,58 +6,54 @@ class YatzyDatabase {
     private $connection;
 
     function __construct() {
-        $this->create_DB();
+        $this->connect_to_DB();
         $this->load_DB();
     }
 
-    //Creates database
-    function create_DB() {
+    //Connects to database
+    function connect_to_DB() {
         $config = $GLOBALS['dbConfig']; 
-        if (session_status() == PHP_SESSION_NONE) {
-            $connection = pg_connect("host='localhost' port='5000' user={$config['user']} password={$config['password']}");
-
-            //Check if the database exists
-            $query = "SELECT 1 FROM pg_database WHERE datname = 'dbname={$config['dbname']}'";
-            $result = pg_query($connection, $query);
-
-            if (pg_num_rows($result) == 0) {
-                //Create database
-                $query = "CREATE DATABASE $dbname";
-                $result = pg_query($connection, $query);
-            }
-
-            pg_close($connection);
-
-        }
-        //Connect to database
         $this->connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
+
+        //Create database if it doesn't exist
+        if (!$this->connection) {
+            $config = $GLOBALS['dbConfig']; 
+            $connection = pg_connect("host=localhost port=5432 user={$config['user']} password={$config['password']}");
+
+            $query = "CREATE DATABASE {$config['dbname']};";
+            pg_query($connection, $query);
+        
+            pg_close($connection);
+            // Connect to the database
+            $this->connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
+        }
+        
     }
 
-    //Initializes tables and loads the database
+    //Initializes database tables if needed
     function load_DB() {
-        if (session_status() == PHP_SESSION_NONE) {
-            $query = "CREATE TABLE IF NOT EXISTS Users(
-                        First_Name VARCHAR(30) NOT NULL,
-                        Last_Name VARCHAR(30) NOT NULL,
-                        Username VARCHAR(30) NOT NULL,
-                        Password VARCHAR(30),
-                        Registration_Date Date,
-                        Last_Login DATE,
-                        PRIMARY KEY(Username)
-                    );";
-               $result = pg_query($this->connection, $query);
+        $query = "CREATE TABLE IF NOT EXISTS Users(
+                    First_Name VARCHAR(30) NOT NULL,
+                    Last_Name VARCHAR(30) NOT NULL,
+                    Username VARCHAR(30) NOT NULL,
+                    Password VARCHAR(30),
+                    Registration_Date Date,
+                    Last_Login DATE,
+                    PRIMARY KEY(Username)
+                );";
+            $result = pg_query($this->connection, $query);
 
-            $query = "CREATE TABLE IF NOT EXISTS Scores(
-                id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-                Username VARCHAR(30),
-                Score INTEGER,
-                Date_Scored Date,
-                FOREIGN KEY(Username) REFERENCES Users(Username) 
-                ON DELETE CASCADE
-            );";
-            pg_query($this->connection, $query);
+        pg_query($this->connection, 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+        $query = "CREATE TABLE IF NOT EXISTS Scores(
+                    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+                    Username VARCHAR(30),
+                    Score INTEGER,
+                    Date_Scored Date,
+                    FOREIGN KEY(Username) REFERENCES Users(Username) 
+                    ON DELETE CASCADE
+                );";
 
-        }
+        pg_query($this->connection, $query);
     }
 
     //Adds user to database

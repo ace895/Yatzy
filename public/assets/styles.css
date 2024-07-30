@@ -178,7 +178,8 @@ button {
     position: relative;
 }
 
-#roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover, .small:hover, .info-td-head:hover {
+#roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover, 
+.small:hover, .info-td-head:hover, #sign-up-button:hover {
     background-color: #e3d040;
 }
 
