@@ -132,6 +132,16 @@ class YatzyDatabase {
         return $result;
     }
 
+    //Updates user's name in the database
+    function update_user($username, $fName, $lName) {
+        $query = "UPDATE Users 
+                SET first_name = '$fName', last_name = '$lName'
+                WHERE username = '$username';";
+        $result = pg_query($this->connection, $query);
+        echo $query;
+        return $result;
+    }
+
     //Adds score to the database
     function add_score($username, $score) {
         $query = "INSERT INTO Scores (Username, Score, Date_Scored) VALUES ($1, $2, CURRENT_DATE);";
