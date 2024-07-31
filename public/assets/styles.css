@@ -173,12 +173,12 @@ button {
     border-width: 3px;
 }
 
-#how-to-play, #home_button, #info {
+#how-to-play, #home_button, #info, #logout_button {
     font-size: large;
     position: relative;
 }
 
-#roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover, 
+#roll-button:hover, #how-to-play:hover, #login-button:hover ,#info:hover, #home_button:hover, #logout_button:hover, 
 .small:hover, .info-td-head:hover, #sign-up-button:hover {
     background-color: #e3d040;
 }

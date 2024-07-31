@@ -14,9 +14,8 @@ class YatzyDatabase {
     function connect_to_DB() {
         $config = $GLOBALS['dbConfig']; 
         $this->connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
-
         //Create database if it doesn't exist
-        if (!$this->connection) {
+       if (!$this->connection) {
             $config = $GLOBALS['dbConfig']; 
             $connection = pg_connect("host=localhost port=5432 user={$config['user']} password={$config['password']}");
 
@@ -26,8 +25,7 @@ class YatzyDatabase {
             pg_close($connection);
             // Connect to the database
             $this->connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
-        }
-        
+       }
     }
 
     //Initializes database tables if needed
@@ -119,9 +117,9 @@ class YatzyDatabase {
 
     // Fetches top 10 scores of the user
     function get_top_scores($username) {
-        $query = "SELECT Score FROM Scores WHERE Username = '$username' ORDER BY Score DESC LIMIT 10;";
+        $query = "SELECT Score, Date_Scored FROM Scores WHERE Username = '$username' ORDER BY Score DESC LIMIT 10;";
         $result = pg_query($this->connection, $query);
-        return pg_fetch_all_columns($result);
+        return pg_fetch_all($result);
     }
 
     //Deletes a given user from the database
@@ -138,7 +136,6 @@ class YatzyDatabase {
                 SET first_name = '$fName', last_name = '$lName'
                 WHERE username = '$username';";
         $result = pg_query($this->connection, $query);
-        echo $query;
         return $result;
     }
 

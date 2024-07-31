@@ -121,3 +121,16 @@ async function getSession() {
     console.log("SESSION");
     console.log(response);
 }
+
+async function logout() {
+    try {
+        await $.ajax({
+            type: "GET",
+            url: "../api.php?action=logout"
+        });
+        // Redirect to the login page
+        window.location.href = "login.html";
+    } catch (error) {
+        console.error("Logout failed:", error);
+    }
+}

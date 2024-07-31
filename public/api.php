@@ -104,6 +104,12 @@
         $firstName = $_GET["firstName"];
         $lastName = $_GET["lastName"];
         $data = ["value" => $db->update_user($username, $firstName, $lastName)];
+        break;
+    case "logout":
+        // Destroy the session and clear session data
+        session_destroy();
+        $data = ["value" => true];
+        break;
     default:
         $data = null;
     }
