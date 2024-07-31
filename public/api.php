@@ -99,6 +99,11 @@
             $data = ["error" => "User not logged in"];
         }
         break;
+    case "logout":
+        // Destroy the session and clear session data
+        session_destroy();
+        $data = ["value" => true];
+        break;
     default:
         $data = null;
     }

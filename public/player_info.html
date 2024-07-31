@@ -9,9 +9,14 @@
 <body class="player_info"> 
     <div class="header"> 
         <h1 id="title">YATZY</h1>
-        <a href="game_board.html">
-            <button id="home_button"><b>HOME</b></button>
-        </a>
+        <div class="button-container">
+            <a href ="login.html">
+                <button id="logout_button"><b>LOGOUT</b></button> 
+            </a>
+            <a href="game_board.html">
+                <button id="home_button"><b>HOME</b></button>
+            </a>
+        </div>
     </div>
     <hr>
     <div id="user_info">
@@ -27,6 +32,7 @@
                 <tr>
                     <th>Rank</th>
                     <th>Score</th>
+                    <th>Date Scored</th>
                 </tr>
             </thead>
             <tbody id="scores_list"></tbody>
@@ -43,13 +49,22 @@
             const topScores = await callWithoutParam('getTopScores');
             const scoresList = $('#scores_list');
             if (topScores && topScores.length > 0) {
-                topScores.forEach((score, index) => {
-                    scoresList.append('<tr><td>' + (index + 1) + '</td><td>' + score + '</td></tr>');
+                topScores.forEach((score, index, date_scored) => {
+                    scoresList.append('<tr><td>' + (index + 1) + '</td><td>' + score + '</td></tr>'  + date_scored + '</td></tr>');
                 });
             } else {
                 scoresList.append('<tr><td colspan="2">No scores available</td></tr>');
             }
         });
+       // Logout functionality
+        $('#logout_button').click(function() {
+            logout().then(() => {
+                window.location.href = 'login.html'; // Redirect to login page after logout
+            }).catch(error => {
+                console.error('Logout failed:', error);
+            });
+        });
+
     </script>
 </body>
 </html>

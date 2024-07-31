@@ -1,6 +1,6 @@
 <?php
 
-define("PASSWORD", "password");
+define("PASSWORD", "123456");
 
 $GLOBALS["appDir"] = resolve_path("app");
 $GLOBALS["vendorDir"] = resolve_path("vendor");

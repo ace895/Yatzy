@@ -14,9 +14,8 @@ class YatzyDatabase {
     function connect_to_DB() {
         $config = $GLOBALS['dbConfig']; 
         $this->connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
-
         //Create database if it doesn't exist
-        if (!$this->connection) {
+       if (!$this->connection) {
             $config = $GLOBALS['dbConfig']; 
             $connection = pg_connect("host=localhost port=5432 user={$config['user']} password={$config['password']}");
 
@@ -26,8 +25,7 @@ class YatzyDatabase {
             pg_close($connection);
             // Connect to the database
             $this->connection = pg_connect("host={$config['host']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}");
-        }
-        
+       }
     }
 
     //Initializes database tables if needed
