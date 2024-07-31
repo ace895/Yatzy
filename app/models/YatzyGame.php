@@ -91,7 +91,6 @@ class YatzyGame {
             $this->lower_score += $score;
             $_SESSION["lower_score"] = $this->lower_score;
         }
-        console.log($score);
     }
 
     //Resets scores
