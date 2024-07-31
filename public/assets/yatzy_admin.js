@@ -17,8 +17,10 @@ window.onload = async function() {
         user["rank"] = rank;
         user["highScore"] = highScore;
 
-        var deleteButton = "<button class='small delete-btn' onclick='deleteUser(\"" + user.username + "\")'><b>Delete<b></button>"
-        var infoButton = "<button class='small' onclick='getUserScores(\"" + user.username + "\")'><b>View Scores<b></button>"
+        var deleteButton = "<button class='small delete-btn' onclick='deleteUser(\"" + user.username + "\")'><b>Delete<b></button>";
+        var infoButton = "<button class='small' onclick='getUserScores(\"" + user.username + "\")'><b>View Scores<b></button>";
+        var editButton = "<button class='small'style=\"width: 80px\" onclick='editUser(\"" + user.username + "\", \"" + user.first_name 
+                        + "\", \"" + user.last_name + "\")'><b>Edit<b></button>";
 
         table.innerHTML += "<tr><td class='info-td'>" + user.first_name + " " + user.last_name +
                             "</td><td class='info-td'>" + user.username +
@@ -27,6 +29,7 @@ window.onload = async function() {
                             "</td><td class='info-td'>" + user.highScore +
                             "</td><td class='info-td'>" + user.rank + 
                             "</td><td class='blank-td'>" + infoButton + 
+                            "</td><td class='blank-td'>" + editButton + 
                             "</td><td class='blank-td'>" + deleteButton + "</td></tr>";
     }
 
@@ -40,12 +43,16 @@ function deleteUser(username) {
 
 //Display user scores
 async function getUserScores(username) {
+    //Hide user editting form if needed
+    document.getElementById("edit-user").style.visibility = "hidden";
+
     //Get user scores
     var scores = await callWithParam("getScores", username);
 
     //Update UI components
     var table = document.getElementById("user-scores-table");
     var header = document.getElementById("score-header");
+    header.style.visibility = "visible";
     header.innerHTML = username + "'s Scores";
     table.innerHTML = "<thead><tr><td class=\"info-td-head\">Score</td><td class=\"info-td-head\">Date</td></tr> </thead>"
 
@@ -56,6 +63,40 @@ async function getUserScores(username) {
     }
 
     table.style.visibility = "visible";
+}
+
+//Allow admin to edit user info
+function editUser(username, firstName, lastName) {
+    document.getElementById("user-scores-table").style.visibility = "hidden";
+    document.getElementById("score-header").style.visibility = "hidden";
+    document.getElementById("edit-user").style.visibility = "visible";
+
+    //Load placeholders and title
+    document.getElementById("edit-header").innerHTML = "Edit " + username + "'s Information";
+    var fNameIn = document.getElementById("first-name");
+    var lNameIn = document.getElementById("last-name");
+    var usernameIn = document.getElementById("username");
+    fNameIn.setAttribute("value", firstName);
+    lNameIn.setAttribute("value", lastName);
+    usernameIn.setAttribute("value", username);
+}
+
+//Updates user info in the database
+async function updateUser() {
+    var username = document.getElementById("username").value;
+    var firstName = document.getElementById("first-name").value;
+    var lastName = document.getElementById("last-name").value;
+    var response = await $.ajax({
+        type: "GET",
+        url: "../api.php",
+        data: {
+            action: "updateUser",
+            username: username,
+            firstName: firstName,
+            lastName: lastName
+        }
+    });
+    location.reload();
 }
 
 function rankByName() {
@@ -136,6 +177,8 @@ function loadUsersTable() {
     for (var user of users) {
         var deleteButton = "<button class='small delete-btn' onclick='deleteUser(\"" + user.username + "\")'><b>Delete<b></button>";
         var infoButton = "<button class='small' onclick='getUserScores(\"" + user.username + "\")'><b>View Scores<b></button>";
+        var editButton = "<button class='small'style=\"width: 80px\" onclick='editUser(\"" + user.username + "\", \"" + user.first_name 
+        + "\", \"" + user.last_name + "\")'><b>Edit<b></button>";
 
         table.innerHTML += "<tr><td onclick=\"rankByName()\" class='info-td'>" + user.first_name + " " + user.last_name +
             "</td><td onclick=\"rankByUsername()\" class='info-td'>" + user.username +
@@ -144,6 +187,8 @@ function loadUsersTable() {
             "</td><td onclick=\"rankByHighscore()\" class='info-td'>" + user.highScore +
             "</td><td onclick=\"rankByRank()\" class='info-td'>" + user.rank +
             "</td><td class='blank-td'>" + infoButton +
+            "</td><td class='blank-td'>" + editButton +
             "</td><td class='blank-td'>" + deleteButton + "</td></tr>";
+
     }
 }
