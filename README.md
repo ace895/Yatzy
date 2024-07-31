@@ -9,9 +9,12 @@ Check out our [Portfolio](https://github.com/ace895/Portfolio) with our Yatzy ga
 If your interested in our HTML, CSS and Javascript version of the yatzy game. [Click Link](/versions/v01)
 
 ## For Developers: How to set up Yatzy
-1. Open the command prompt in the public directory
-2. Execute the command >php -S localhost:4000
-3. Open [localhost:4000/login.html](http://localhost:4000/login.html) in your web browser
+1. Open public/_config.php
+2. Update the username and password in $GLOBALS["dbConfig"] to match your postgres login
+3. Ensure that you have the pgsql extension enabled for PHP
+4. Open the command prompt in the public directory
+5. Execute the command >php -S localhost:4000
+6. Open [localhost:4000/login.html](http://localhost:4000/login.html) in your web browser
 
 ## For Admins: How to manage Yatzy
 1. Open the Yatzy application at [localhost:4000/login.html](http://localhost:4000/login.html) in your web browser
