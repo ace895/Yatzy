@@ -218,6 +218,8 @@ async function endGame() {
     const leaderboardIframe = document.createElement("iframe");
     leaderboardIframe.src = "leaderboard.html";
     document.getElementById("dice-board").appendChild(leaderboardIframe);
+
+    
 }
 
 const upperScores = ["aces-score", "twos-score", "threes-score", "fours-score", "fives-score", "sixes-score"];
